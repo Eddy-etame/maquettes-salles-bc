@@ -82,42 +82,42 @@ export const DISCIPLINES = [
     name: "Boxe Anglaise",
     tag: "La spécialité maison",
     desc: "Le noble art dans son temple. Jab, esquive, jeu de jambes — la discipline qui a forgé la réputation des Minimes.",
-    img: "/img/disc/boxe-anglaise.webp",
+    img: "/assets/img/bc/anglaise-1.webp",
   },
   {
     key: "educative",
     name: "Boxe Éducative",
     tag: "Dès 7 ans",
     desc: "On apprend à boxer avant d'apprendre à frapper. Coordination, respect, confiance : la relève commence ici.",
-    img: "/img/disc/educative.webp",
+    img: "/assets/img/bc/educative-1.webp",
   },
   {
     key: "lady",
     name: "Lady Punch",
     tag: "100 % féminin",
     desc: "Un créneau, une énergie, zéro complexe. La boxe pour se défouler, se sculpter et se sentir invincible.",
-    img: "/img/disc/lady.webp",
+    img: "/assets/img/bc/lady-2.webp",
   },
   {
     key: "paos",
     name: "PAOS & Pattes d'ours",
     tag: "Travail technique",
     desc: "Face au coach, sur les pattes d'ours : précision, vitesse, lecture. Le cœur du travail de boxeur.",
-    img: "/img/gym-20.jpg",
+    img: "/assets/img/bc/training-2.webp",
   },
   {
     key: "cross",
     name: "Cross Training",
     tag: "La caisse",
     desc: "Gainage, cardio, explosivité. Le moteur sous le capot du boxeur — à l'étage, en circuit.",
-    img: "/img/disc/cross.webp",
+    img: "/assets/img/bc/cross-1.webp",
   },
   {
     key: "cardio",
     name: "Cardio Boxing",
     tag: "Sans contact",
     desc: "Tout le geste, toute la sueur, aucun coup reçu. La porte d'entrée idéale pour débuter.",
-    img: "/img/disc/showcase-ring.webp",
+    img: "/assets/img/bc/training-1.webp",
   },
 ];
 
@@ -125,10 +125,10 @@ export const DISCIPLINES = [
    Boxeurs réels formés aux Minimes (source boxingcenter.fr). ⚠ noms = prénoms
    publics ; vérifier palmarès exact + ajouter photos réelles avec le club. */
 export const CHAMPIONS = [
-  { name: "Johnson", initials: "JO", record: "Poids moyen · invaincu chez les pros", years: "Pro 2023", note: "10ᵉ Français (Boxrec) · 28 combats amateurs", img: "/img/disc/boxe-anglaise.webp" },
-  { name: "Salomon", initials: "SA", record: "Super-plume · invaincu chez les pros", years: "Pro 2023", note: "Technicien, formé à la maison", img: "/img/disc/showcase-ring.webp" },
-  { name: "Elyasse", initials: "EL", record: "Poids welter · passé pro", years: "Pro 2024", note: "Issu de l'école amateur des Minimes", img: "/img/gym-20.jpg" },
-  { name: "L'école", initials: "+30", record: "Une trentaine d'amateurs sur le ring", years: "Le vivier", note: "5 passés pros sur la saison 2024-25", img: "/img/disc/educative.webp" },
+  { name: "Johnson Suffo", last: "Suffo", weight: "Poids moyen", record: "Invaincu chez les pros", years: "Pro 2023", note: "10ᵉ Français au classement Boxrec · 28 combats amateurs", img: "/assets/img/bc/cutouts/johnson-suffo.png" },
+  { name: "Salomon Kitoko", last: "Kitoko", weight: "Super-plume", record: "Invaincu chez les pros", years: "Pro 2023", note: "Le technicien de la maison — vitesse, lecture, sang-froid", img: "/assets/img/bc/cutouts/salomon-kitoko.png" },
+  { name: "Elyasse Azap", last: "Azap", weight: "Poids welter", record: "Passé professionnel", years: "Pro 2024", note: "Pur produit de l'école amateur des Minimes", img: "/assets/img/bc/cutouts/elyasse-azap.png" },
+  { name: "L'école", last: "École", weight: "Le vivier", record: "Une trentaine d'amateurs sur le ring", years: "Depuis 2016", note: "5 passés pros sur la seule saison 2024-25 — la relève ne s'arrête jamais", img: "/assets/img/bc/cutouts/coach-dadi.png" },
 ];
 
 export const VALUES = [
@@ -139,10 +139,10 @@ export const VALUES = [
 ];
 
 export const AUDIENCES = [
-  { t: "Les débutants", d: "Jamais mis un gant ? C'est exactement pour toi. Créneaux dédiés, zéro jugement." },
-  { t: "Les femmes", d: "Lady Punch et cours mixtes : la boxe sans cliché, pour la forme comme pour la confiance." },
-  { t: "Les enfants (7+)", d: "Boxe éducative : discipline, respect et défoulement encadré." },
-  { t: "Les compétiteurs", d: "Trois rings, des sparrings réguliers, des coachs qui ont vécu la compétition." },
+  { t: "Les débutants", tag: "Première fois", d: "Jamais mis un gant ? C'est exactement pour toi. Créneaux dédiés, zéro jugement — on t'apprend, à ton rythme.", img: "/assets/img/bc/training-1.webp" },
+  { t: "Les femmes", tag: "Lady Punch", d: "Lady Punch et cours mixtes : la boxe sans cliché, pour la forme comme pour la confiance. Un créneau 100 % féminin.", img: "/assets/img/bc/lady-1.webp" },
+  { t: "Les enfants", tag: "Dès 7 ans", d: "Boxe éducative : discipline, respect et énergie canalisée. Le ring qui construit des enfants debout.", img: "/assets/img/bc/educative-1.webp" },
+  { t: "Les compétiteurs", tag: "Le ring", d: "Trois rings, des sparrings réguliers, des coachs qui ont vécu la compétition. On t'amène au combat, prêt.", img: "/assets/img/bc/anglaise-2.webp" },
 ];
 
 /* L'offre — reprend le dispositif commercial Boxing Center */

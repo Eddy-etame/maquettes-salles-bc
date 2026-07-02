@@ -190,12 +190,12 @@ html.fx .reveal-mask > span { opacity: 0; }
 
 /* ---------------------------- FOOTER ------------------------------ */
 .footer { background: var(--black); border-top: 2px solid var(--red); padding-block: clamp(2.5rem,5vw,4rem) 2rem; position: relative; overflow: hidden; }
-.footer__big { font-family: var(--f-display); text-transform: uppercase; line-height: .82; font-size: var(--step-4); color: transparent; -webkit-text-stroke: 1.5px var(--line); letter-spacing: -.01em; padding-bottom: clamp(1rem,3vw,2.4rem); white-space: nowrap; }
+.footer__big { font-family: var(--f-display); text-transform: uppercase; line-height: .86; font-size: clamp(2.4rem, 8.5vw, 7rem); color: transparent; -webkit-text-stroke: 1.5px var(--line); letter-spacing: -.01em; padding-bottom: clamp(1rem,3vw,2.4rem); max-width: 14ch; }
 .footer__grid { display: grid; gap: 2.2rem; grid-template-columns: 1fr; padding-block: 2.2rem; border-top: 1px solid var(--line); }
 @media (min-width: 760px){ .footer__grid { grid-template-columns: 1.4fr 1fr 1fr 1fr; } }
 .footer__col h4 { font: 700 var(--step--1)/1 var(--f-mono); letter-spacing: .18em; text-transform: uppercase; color: var(--red); margin-bottom: 1rem; }
-.footer__col a, .footer__col p { display: block; color: var(--muted); padding-block: .35em; transition: color .3s; }
-.footer__col a:hover { color: var(--bone); }
+.footer__col a:not(.btn), .footer__col p { display: block; color: var(--muted); padding-block: .35em; transition: color .3s; }
+.footer__col a:not(.btn):hover { color: var(--bone); }
 .footer__bottom { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; padding-top: 1.6rem; border-top: 1px solid var(--line); font: 700 var(--step--1)/1 var(--f-mono); letter-spacing: .08em; color: var(--bone-dim); }
 
 /* ----------------------- CHATBOT placeholder ---------------------- */
@@ -208,6 +208,22 @@ html.fx .reveal-mask > span { opacity: 0; }
 .chatbot::after { content: ""; position: absolute; inset: 0; border-radius: 100px; border: 2px solid var(--red); opacity: .55; animation: chatpulse 2.4s var(--ease) infinite; pointer-events: none; }
 .chatbot:hover::after { animation: none; opacity: 0; }
 @keyframes chatpulse { 0% { transform: scale(1); opacity: .55; } 70%, 100% { transform: scale(1.3); opacity: 0; } }
+
+/* --------------------- SCORECARD HUD (rounds) --------------------- */
+.hud { position: fixed; left: clamp(1rem,2.5vw,1.6rem); bottom: clamp(1rem,2.5vw,1.6rem); z-index: 8400; display: flex; flex-direction: column; gap: .4rem; padding: .75rem .95rem; min-width: 132px; background: rgba(10,9,8,.55); backdrop-filter: blur(9px); border: 1px solid var(--line); opacity: 0; transform: translateY(14px); transition: opacity .45s var(--ease), transform .45s var(--ease); pointer-events: none; will-change: transform; }
+.hud.is-on { opacity: 1; transform: none; pointer-events: auto; }
+.hud__top { display: flex; align-items: baseline; gap: .5ch; }
+.hud__label { font: 700 .58rem/1 var(--f-mono); letter-spacing: .22em; text-transform: uppercase; color: var(--red); }
+.hud__num { font-family: var(--f-display); font-size: 1.5rem; line-height: 1; color: var(--bone); }
+.hud__name { font: 700 var(--step--1)/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--bone-dim); max-width: 18ch; }
+.hud__ticks { display: flex; gap: 3px; margin-top: .2rem; }
+.hud__ticks i { width: 12px; height: 3px; background: var(--line); transition: background .35s var(--ease); }
+.hud__ticks i.on { background: var(--red); }
+.hud__sound { position: absolute; top: .55rem; right: .6rem; width: 20px; height: 20px; display: grid; place-items: center; color: var(--bone-dim); border: 1px solid var(--line); border-radius: 50%; transition: color .3s, border-color .3s; pointer-events: auto; }
+.hud__sound svg { width: 11px; height: 11px; }
+.hud__sound:hover { color: var(--bone); border-color: var(--bone-dim); }
+.hud.sound-on .hud__sound { color: var(--red); border-color: var(--red); }
+@media (max-width: 560px){ .hud { display: none; } }
 
 /* --------------------------- HELPERS ------------------------------ */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }

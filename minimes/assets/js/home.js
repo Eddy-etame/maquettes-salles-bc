@@ -3,6 +3,7 @@
    ===================================================================== */
 import { STATS, DISCIPLINES, CHAMPIONS, VALUES, AUDIENCES, TARIFS, MEDIA } from "./data.js";
 import { initHero } from "./hero.js";
+import { initRounds } from "./rounds.js";
 
 const gsap = window.gsap;
 const ScrollTrigger = window.ScrollTrigger;
@@ -24,19 +25,22 @@ function renderMarquee() {
   const t = $("#marquee"); t.innerHTML = row + row; t.dataset.speed = "1.3";
 }
 function renderChampions() {
-  $("#champions-track").innerHTML = CHAMPIONS.map(
-    (c, i) => `<article class="champ">
-      <div class="champ__media"><div class="media" data-img="${c.img}" data-label=""></div></div>
-      <span class="champ__big" aria-hidden="true">${c.initials}</span>
-      <span class="champ__num">N°${String(i + 1).padStart(2, "0")}</span>
-      <span class="champ__years">${c.years}</span>
-      <div class="champ__info">
-        <p class="champ__record">${c.record}</p>
-        <h3 class="champ__name">${c.name}</h3>
-        <p class="champ__note">${c.note}</p>
+  const stage = $("#forge-stage"), rail = $("#forge-rail");
+  if (!stage) return;
+  stage.innerHTML = CHAMPIONS.map((c, i) => `
+    <article class="forge__fig ${i === 0 ? "is-active" : ""}" data-i="${i}">
+      <span class="forge__bigname" aria-hidden="true">${c.last}</span>
+      <img class="forge__cut" src="${c.img}" alt="${c.name}" decoding="async" />
+      <div class="forge__card">
+        <span class="forge__idx">N°${String(i + 1).padStart(2, "0")} <i>· ${c.years}</i></span>
+        <span class="forge__weight">${c.weight} — ${c.record}</span>
+        <h3 class="forge__name">${c.name}</h3>
+        <p class="forge__note">${c.note}</p>
       </div>
-    </article>`
-  ).join("");
+    </article>`).join("");
+  if (rail) rail.innerHTML = CHAMPIONS.map((c, i) => `<li class="forge__tick ${i === 0 ? "is-active" : ""}" data-i="${i}"></li>`).join("");
+  // warm the cache so a silhouette is instant the moment it becomes active
+  CHAMPIONS.forEach((c) => { const im = new Image(); im.src = c.img; });
 }
 function renderDisciplines() {
   $("#disciplines").innerHTML = DISCIPLINES.map(
@@ -56,10 +60,51 @@ function renderValues() {
     (v) => `<div class="value"><span class="value__n">${v.n}</span><div><h3 class="value__t">${v.t}</h3><p class="value__d">${v.d}</p></div></div>`
   ).join("");
 }
-function renderAudiences() {
-  $("#audiences").innerHTML = AUDIENCES.map(
-    (a) => `<div class="aud__card"><h3 class="aud__t">${a.t}</h3><p class="aud__d">${a.d}</p></div>`
-  ).join("");
+function renderWhoFor() {
+  const stage = $("#whofor-stage"), rail = $("#whofor-rail");
+  if (!stage) return;
+  stage.innerHTML = AUDIENCES.map((a, i) => `
+    <article class="who ${i === 0 ? "is-active" : ""}" data-i="${i}">
+      <div class="who__media media" data-img="${a.img}" aria-hidden="true"></div>
+      <div class="who__body">
+        <span class="who__idx">${String(i + 1).padStart(2, "0")} <i>/ 0${AUDIENCES.length}</i> · ${a.tag}</span>
+        <h3 class="who__t">${a.t}</h3>
+        <p class="who__d">${a.d}</p>
+      </div>
+    </article>`).join("");
+  if (rail) rail.innerHTML = AUDIENCES.map((a, i) => `<li class="who__tick ${i === 0 ? "is-active" : ""}" data-i="${i}"><span>${String(i + 1).padStart(2, "0")}</span> ${a.t}</li>`).join("");
+}
+
+/* Scroll-jacked "Pour qui": as you scroll the pinned section, the active
+   audience swaps (débutants → femmes → enfants → compétiteurs). */
+function whoForScroll() {
+  const section = document.querySelector(".whofor");
+  const stage = $("#whofor-stage");
+  const sticky = document.querySelector(".whofor__sticky");
+  if (!section || !stage || !sticky) return;
+  const whos = [...stage.querySelectorAll(".who")];
+  const ticks = [...document.querySelectorAll("#whofor-rail .who__tick")];
+  const n = whos.length;
+  let curr = -1;
+  const update = () => {
+    // only scroll-jack while the CSS pin is active (desktop). On mobile the
+    // panels are shown stacked by CSS, so we do nothing.
+    if (getComputedStyle(sticky).position !== "sticky") return;
+    const vh = sticky.offsetHeight || window.innerHeight || 800; // sticky is 100vh → reliable
+    const total = section.offsetHeight - vh;
+    if (total <= 0) return;
+    const p = Math.min(0.9999, Math.max(0, -section.getBoundingClientRect().top / total));
+    const idx = Math.min(n - 1, Math.floor(p * n));
+    if (idx !== curr) {
+      curr = idx;
+      whos.forEach((w, i) => w.classList.toggle("is-active", i === idx));
+      ticks.forEach((t, i) => t.classList.toggle("is-active", i <= idx));
+    }
+  };
+  if (window.BC && window.BC.lenis) window.BC.lenis.on("scroll", update);
+  else window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+  update();
 }
 function renderTarifs() {
   $("#tarifs").innerHTML = TARIFS.map(
@@ -91,25 +136,83 @@ function countUp() {
   });
 }
 
-function championsWall() {
-  const track = $("#champions-track");
-  if (!track) return;
-  if (window.matchMedia("(max-width: 760px)").matches || reduce) {
-    document.querySelector(".wall").style.cssText = "overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch";
-    track.querySelectorAll(".champ").forEach((c) => (c.style.scrollSnapAlign = "start"));
-    return;
-  }
-  const dist = () => track.scrollWidth - window.innerWidth + 80;
-  gsap.to(track, {
-    x: () => -dist(), ease: "none",
-    scrollTrigger: { trigger: ".champions", start: "top top", end: () => "+=" + dist(), pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 },
-  });
+/* Mur des champions — scroll-driven silhouette reveal. As you scroll the
+   pinned section, one real boxer cut-out rises in as the previous exits
+   (Portet's forge idea, restyled). Live geometry; vh from the 100vh pin. */
+function forgeReveal() {
+  const section = document.querySelector(".forge");
+  const stage = $("#forge-stage");
+  const sticky = document.querySelector(".forge__sticky");
+  if (!section || !stage || !sticky) return;
+  const figs = [...stage.querySelectorAll(".forge__fig")];
+  const ticks = [...document.querySelectorAll("#forge-rail .forge__tick")];
+  const n = figs.length;
+  let curr = -1;
+  const update = () => {
+    if (getComputedStyle(sticky).position !== "sticky") return; // mobile = stacked
+    const vh = sticky.offsetHeight || window.innerHeight || 800;
+    const total = section.offsetHeight - vh;
+    if (total <= 0) return;
+    const p = Math.min(0.9999, Math.max(0, -section.getBoundingClientRect().top / total));
+    const idx = Math.min(n - 1, Math.floor(p * n));
+    if (idx !== curr) {
+      curr = idx;
+      figs.forEach((f, i) => f.classList.toggle("is-active", i === idx));
+      ticks.forEach((t, i) => t.classList.toggle("is-active", i <= idx));
+    }
+  };
+  if (window.BC && window.BC.lenis) window.BC.lenis.on("scroll", update);
+  else window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+  update();
+}
+
+/* Photos "develop" in as they enter (safe: fromTo always ends visible). */
+function mediaReveal() {
+  if (reduce) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const img = e.target.querySelector("img");
+      if (img) gsap.fromTo(img, { opacity: 0, scale: 1.14 }, { opacity: 1, scale: 1, duration: 1.1, ease: "power3.out", clearProps: "transform,opacity" });
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll(".gallery__cell, .feature__media").forEach((t) => io.observe(t));
+}
+
+/* Multi-depth parallax on decorative backgrounds — the "moving camera"
+   feel. Live geometry (Portet's technique); bg's are scaled so no gaps. */
+function parallax() {
+  if (reduce) return;
+  const items = [];
+  document.querySelectorAll(".palmares__bg").forEach((el) => items.push({ el, amt: 40, scale: 1.14 }));
+  document.querySelectorAll(".gong__bg").forEach((el) => items.push({ el, amt: 55, scale: 1.14 }));
+  document.querySelectorAll(".champ__big").forEach((el) => items.push({ el, amt: 16, scale: 1 }));
+  if (!items.length) return;
+  let ticking = false;
+  const apply = () => {
+    ticking = false;
+    const vh = window.innerHeight;
+    for (const it of items) {
+      const r = it.el.getBoundingClientRect();
+      if (r.bottom < -300 || r.top > vh + 300) continue;
+      const prog = (r.top + r.height / 2 - vh / 2) / vh;
+      const y = (-prog * it.amt).toFixed(1);
+      it.el.style.transform = it.scale !== 1 ? `translate3d(0,${y}px,0) scale(${it.scale})` : `translate3d(0,${y}px,0)`;
+    }
+  };
+  const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(apply); } };
+  if (window.BC && window.BC.lenis) window.BC.lenis.on("scroll", onScroll);
+  else window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  apply();
 }
 
 /* ------------------------------ BOOT ------------------------------ */
 function boot() {
   renderStats(); renderMarquee(); renderChampions();
-  renderDisciplines(); renderValues(); renderAudiences(); renderTarifs();
+  renderDisciplines(); renderValues(); renderWhoFor(); renderTarifs();
 
   window.BC.media(document);
   initHero();
@@ -117,7 +220,11 @@ function boot() {
   window.BC.magnetic(document);
 
   countUp();
-  championsWall();
+  forgeReveal();
+  initRounds();
+  mediaReveal();
+  parallax();
+  whoForScroll();
 
   const start = () => { window.BC.refresh(); window.BC.initKinetics(); };
   window.addEventListener("load", start);

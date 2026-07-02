@@ -236,7 +236,7 @@ function hydrateMedia(scope = document) {
   scope.querySelectorAll(".media[data-img]").forEach((el) => {
     if (el.dataset.mediaBound) return; el.dataset.mediaBound = "1";
     const img = new Image();
-    img.src = (el.dataset.img.startsWith("http") ? "" : MEDIA) + el.dataset.img;
+    img.src = (/^(https?:|\/assets)/.test(el.dataset.img) ? "" : MEDIA) + el.dataset.img;
     img.alt = el.dataset.label || ""; img.loading = el.hasAttribute("data-eager") ? "eager" : "lazy"; img.decoding = "async";
     el.prepend(img);
   });

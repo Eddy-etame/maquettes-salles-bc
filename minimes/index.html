@@ -105,7 +105,7 @@
 
     <!-- ===================== LE PALMARÈS (stats) ==================== -->
     <section class="palmares" aria-label="Le palmarès de la salle">
-      <div class="palmares__bg" aria-hidden="true"><div class="media" data-img="/img/gym-21.jpg" data-label=""></div></div>
+      <div class="palmares__bg" aria-hidden="true"><div class="media" data-img="/assets/img/bc/anglaise-1.webp" data-label=""></div></div>
       <div class="wrap">
         <span class="eyebrow" style="padding-top:1.4rem;display:inline-flex" data-reveal>Le palmarès</span>
         <div class="stats" id="stats" data-reveal-group></div>
@@ -119,7 +119,7 @@
 
     <!-- ====================== STORY / L'ÂME ======================= -->
     <section class="section" aria-label="L'âme de la salle">
-      <div class="wrap split">
+      <div class="wrap split" data-round="1" data-round-name="Notre maison">
         <div data-reveal>
           <span class="eyebrow">Round 01 — Notre maison</span>
           <p class="story__quote" style="margin-top:1.4rem">L'odeur du cuir.<br>Le bruit du cuir.<br>Le respect du cuir.</p>
@@ -131,7 +131,7 @@
       </div>
 
       <div class="wrap" style="margin-top:var(--sec)">
-        <div class="feature">
+        <div class="feature" data-round="2" data-round-name="L'héritage">
           <div>
             <span class="eyebrow">Round 02 — L'héritage</span>
             <h2 class="display" style="margin:1.2rem 0 1.4rem">Trois rings.<br>Une seule <span class="tint">école.</span></h2>
@@ -139,28 +139,28 @@
             <p class="muted" style="margin-top:1.2rem">Affilié FFBoxe · FFKMDA · FMMAF. Encadrement diplômé, de l'éducative à la compétition.</p>
             <a class="btn btn--ghost" data-magnetic href="/le-club/" style="margin-top:1.6rem"><span>Visiter le club</span></a>
           </div>
-          <div class="feature__media media" data-img="/img/disc/boxe-anglaise.webp" data-label="Les trois rings"></div>
+          <div class="feature__media media" data-img="/assets/img/bc/salle-1.webp" data-label="Les trois rings"></div>
         </div>
       </div>
     </section>
 
     <!-- ==================== MUR DES CHAMPIONS ===================== -->
-    <section class="champions" id="champions" aria-label="Le mur des champions">
-      <div class="champions__head">
-        <div data-reveal>
-          <span class="eyebrow">Round 03 — Le mur des champions</span>
-          <h2 class="display" style="margin-top:1rem">Ils sont nés <span class="tint">sur ce ring</span></h2>
+    <section class="forge" id="champions" data-round="3" data-round-name="Le mur des champions" aria-label="Le mur des champions">
+      <div class="forge__sticky">
+        <div class="wrap forge__grid">
+          <div class="forge__head">
+            <span class="eyebrow">Round 03 — Le mur des champions</span>
+            <h2 class="display forge__title">Ils sont nés <span class="tint">sur ce ring</span></h2>
+            <p class="muted forge__intro">Une salle se juge à ceux qu'elle forme. Trois professionnels sont sortis de ces cordes — et derrière eux, l'école ne s'arrête jamais.</p>
+            <ol class="forge__rail" id="forge-rail"></ol>
+          </div>
+          <div class="forge__stage" id="forge-stage"></div>
         </div>
-        <p class="muted" data-reveal style="max-width:34ch">Une salle se juge à ceux qu'elle forme. Fais défiler le mur — chaque visage a son palmarès.</p>
       </div>
-      <div class="wall">
-        <div class="wall__track" id="champions-track"></div>
-      </div>
-      <p class="wall__hint kicker" data-reveal>↔ glisse / défile pour parcourir le mur</p>
     </section>
 
     <!-- ===================== DISCIPLINES REEL ===================== -->
-    <section class="section reel" aria-label="Les disciplines">
+    <section class="section reel" data-round="4" data-round-name="Ton arme" aria-label="Les disciplines">
       <div class="reel__head">
         <div data-reveal>
           <span class="eyebrow">Round 04 — Ton arme</span>
@@ -172,7 +172,7 @@
     </section>
 
     <!-- ========================= VALUES ========================== -->
-    <section class="section" aria-label="Nos valeurs">
+    <section class="section" data-round="5" data-round-name="La règle de la maison" aria-label="Nos valeurs">
       <div class="wrap">
         <div data-reveal style="margin-bottom:clamp(2rem,5vw,3rem)">
           <span class="eyebrow">Round 05 — La règle de la maison</span>
@@ -182,15 +182,18 @@
       </div>
     </section>
 
-    <!-- ======================== AUDIENCES ======================== -->
-    <section class="section" aria-label="Pour qui">
-      <div class="wrap split" style="align-items:start">
-        <div data-reveal style="position:sticky;top:14vh">
-          <span class="eyebrow">Round 06 — Pour qui</span>
-          <h2 class="display" style="margin:1rem 0 1.2rem">Le ring n'exclut <span class="tint">personne</span></h2>
-          <p class="muted">Du gamin de 7 ans au compétiteur, de la première séance Lady Punch au sparring du samedi : tout le monde a sa place aux Minimes.</p>
+    <!-- ================= POUR QUI (scroll-jacked) ================= -->
+    <section class="whofor" data-round="6" data-round-name="Pour qui" aria-label="Pour qui">
+      <div class="whofor__sticky">
+        <div class="wrap whofor__grid">
+          <div class="whofor__head">
+            <span class="eyebrow">Round 06 — Pour qui</span>
+            <h2 class="display whofor__title">Le ring n'exclut <span class="tint">personne</span></h2>
+            <p class="muted whofor__intro">Du gamin de 7 ans au compétiteur, de la première séance Lady Punch au sparring du samedi : tout le monde a sa place aux Minimes.</p>
+            <ol class="whofor__rail" id="whofor-rail"></ol>
+          </div>
+          <div class="whofor__stage" id="whofor-stage"></div>
         </div>
-        <div class="aud" id="audiences" data-reveal-group></div>
       </div>
     </section>
 
@@ -205,18 +208,18 @@
           <p class="muted" data-reveal style="max-width:32ch">Les rings, les galas, les vidéos postées par la communauté. Tout est dans la galerie.</p>
         </div>
         <div class="gallery__grid" data-reveal-group>
-          <div class="gallery__cell media" data-reveal data-img="/img/gym-21.jpg" data-label="Le grand ring"></div>
-          <div class="gallery__cell media" data-reveal data-img="/img/gym-20.jpg" data-label="Pattes d'ours"></div>
-          <div class="gallery__cell media" data-reveal data-img="/img/disc/lady.webp" data-label="Lady Punch"></div>
-          <div class="gallery__cell media" data-reveal data-img="/img/disc/educative.webp" data-label="Éducative"></div>
-          <div class="gallery__cell media" data-reveal data-img="/img/disc/showcase-ring.webp" data-label="Sparring"></div>
+          <div class="gallery__cell media" data-reveal data-img="/assets/img/bc/anglaise-2.webp" data-label="Sur le ring"></div>
+          <div class="gallery__cell media" data-reveal data-img="/assets/img/bc/training-2.webp" data-label="Pattes d'ours"></div>
+          <div class="gallery__cell media" data-reveal data-img="/assets/img/bc/lady-1.webp" data-label="Lady Punch"></div>
+          <div class="gallery__cell media" data-reveal data-img="/assets/img/bc/educative-1.webp" data-label="Boxe éducative"></div>
+          <div class="gallery__cell media" data-reveal data-img="/assets/img/bc/anglaise-3.webp" data-label="Sparring"></div>
         </div>
         <a class="btn btn--primary" data-magnetic href="/galerie/" style="margin-top:1.8rem"><span>Voir la galerie</span></a>
       </div>
     </section>
 
     <!-- ========================== TARIFS ========================= -->
-    <section class="section" aria-label="L'offre">
+    <section class="section" data-round="7" data-round-name="L'offre" aria-label="L'offre">
       <div class="wrap">
         <div class="reel__head" style="margin-bottom:clamp(2rem,4vw,2.6rem)">
           <div data-reveal>
@@ -240,7 +243,7 @@
 
     <!-- ========================= FINAL GONG ====================== -->
     <section class="gong" aria-label="Rejoindre la salle">
-      <div class="gong__bg" aria-hidden="true"><div class="media" data-img="/img/gym-13.jpg" data-label=""></div></div>
+      <div class="gong__bg" aria-hidden="true"><div class="media" data-img="/assets/img/bc/anglaise-4.webp" data-label=""></div></div>
       <div class="gong__inner">
         <span class="eyebrow" style="justify-content:center" data-reveal>Le gong final</span>
         <h2 class="display" data-reveal style="font-size:var(--step-3)">Ta place t'attend<br><span class="tint">sur le ring.</span></h2>
