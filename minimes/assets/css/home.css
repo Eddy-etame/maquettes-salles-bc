@@ -92,18 +92,24 @@
 .forge__name { font-family: var(--f-display); text-transform: uppercase; font-size: clamp(2rem,3.6vw,3.2rem); line-height: .95; margin: .45rem 0 .6rem; color: var(--white); }
 .forge__note { color: var(--muted); font-size: var(--step--1); }
 @media (min-width: 821px){
-  .forge { height: 440vh; }
+  .forge { height: 340vh; }
   .forge__sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; align-items: center; }
   .forge__grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(2rem,5vw,4rem); align-items: center; }
   .forge__stage { height: 82vh; }
 }
+/* mobile: SAME scroll-jack, compacted (user requirement — no static fallback) */
 @media (max-width: 820px){
-  .forge__sticky { padding-block: var(--sec); }
-  .forge__stage { position: relative; height: auto; display: grid; gap: 2.5rem; margin-top: 2.5rem; }
-  .forge__fig { position: relative; opacity: 1; visibility: visible; height: 78vh; }
-  .forge__cut, .forge__bigname { transform: none; }
-  .forge__cut { transform: translateX(-50%); }
-  .forge__rail { display: none; }
+  .forge { height: 300vh; }
+  .forge__sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; display: flex; }
+  .forge__grid { display: grid; grid-template-rows: auto 1fr; gap: .6rem; width: var(--wrap); margin-inline: auto; padding-block: clamp(4.2rem,9vh,5.5rem) 1rem; height: 100%; align-items: start; }
+  .forge__title { font-size: clamp(1.9rem,8.5vw,2.6rem); margin: .7rem 0 0; }
+  .forge__intro { display: none; }
+  .forge__rail { margin-top: .9rem; }
+  .forge__stage { min-height: 0; }
+  .forge__bigname { font-size: clamp(3rem,17vw,5.5rem); }
+  .forge__name { font-size: clamp(1.6rem,7vw,2.4rem); }
+  .forge__note { font-size: .82rem; }
+  .forge__card { max-width: 24ch; }
 }
 
 /* ====================== DISCIPLINES REEL =========================
@@ -156,7 +162,7 @@
 .who__body { position: absolute; left: 0; right: 0; bottom: 0; padding: clamp(1.5rem,3.2vw,2.4rem); z-index: 2; }
 .who__idx { font: 700 var(--step--1)/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
 .who__idx i { color: var(--bone-dim); font-style: normal; }
-.who__t { font-family: var(--f-display); text-transform: uppercase; font-size: clamp(2.2rem,4.6vw,3.8rem); line-height: .92; margin: .55rem 0 .7rem; color: var(--white); }
+.who__t { font-family: var(--f-display); text-transform: uppercase; font-size: clamp(1.8rem,4.6vw,3.8rem); line-height: .92; margin: .55rem 0 .7rem; color: var(--white); overflow-wrap: anywhere; }
 .who__d { color: var(--bone-dim); max-width: 42ch; font-size: var(--step-0); }
 @media (min-width: 821px){
   .whofor { height: 420vh; }
@@ -164,11 +170,18 @@
   .whofor__grid { display: grid; grid-template-columns: .82fr 1.18fr; gap: clamp(2rem,5vw,5rem); align-items: center; }
   .whofor__stage { height: 74vh; border: 1px solid var(--line); }
 }
+/* mobile: SAME scroll-jack, compacted (user requirement — no static fallback) */
 @media (max-width: 820px){
-  .whofor__sticky { padding-block: var(--sec); }
-  .whofor__stage { position: relative; height: auto; display: grid; gap: 1rem; margin-top: 2rem; }
-  .who { position: relative; opacity: 1; visibility: visible; height: 60vh; border: 1px solid var(--line); }
-  .whofor__rail { display: none; }
+  .whofor { height: 380vh; }
+  .whofor__sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; display: flex; }
+  .whofor__grid { display: grid; grid-template-rows: auto 1fr; gap: .8rem; width: var(--wrap); margin-inline: auto; padding-block: clamp(4.2rem,9vh,5.5rem) 1rem; height: 100%; align-items: start; }
+  .whofor__title { font-size: clamp(1.9rem,8.5vw,2.6rem); }
+  .whofor__intro { display: none; }
+  .whofor__rail { margin-top: 1rem; }
+  .who__tick { padding: .45rem 0; font-size: .68rem; }
+  .whofor__stage { min-height: 0; border: 1px solid var(--line); }
+  .who__t { font-size: clamp(1.6rem,7vw,2.6rem); }
+  .who__d { font-size: .85rem; max-width: 34ch; }
 }
 
 /* ===================== GALLERY TEASER =========================== */

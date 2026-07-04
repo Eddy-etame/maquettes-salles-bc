@@ -133,6 +133,9 @@ html.is-locked, html.is-locked body { overflow: hidden; height: 100%; }
 .nav { position: fixed; inset: 0 0 auto 0; z-index: 8000; display: flex; align-items: center; justify-content: space-between; padding: clamp(.9rem,2vw,1.4rem) var(--gut); transition: transform .5s var(--ease), background .4s; }
 .nav.is-scrolled { background: rgba(10,9,8,.72); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
 .nav.is-hidden { transform: translateY(-110%); }
+/* the open menu owns the screen — the nav (higher z) must fully yield,
+   otherwise its burger-X doubles the menu's FERMER ✕ */
+html.is-menu-open .nav { opacity: 0; visibility: hidden; pointer-events: none; transition: none; }
 .nav__brand { display: inline-flex; align-items: center; gap: .8ch; }
 .nav__logo { height: clamp(24px, 3vw, 34px); width: auto; filter: brightness(0) invert(1); transition: opacity .3s; }
 .nav__brand:hover .nav__logo { opacity: .8; }
