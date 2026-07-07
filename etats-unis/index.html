@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boxing Center États-Unis — La plus grande salle de sports de combat de France (Toulouse Lalande, 31200)</title>
+  <meta name="description" content="1 200 m², 3 zones, une cage MMA officielle et deux rings de compétition. La plus grande salle de France dédiée aux sports de combat, avenue des États-Unis à Toulouse (Lalande, 31200). Boxe, MMA, grappling, Hyrox, street workout. Essai 10€." />
+  <meta name="keywords" content="salle MMA Toulouse, cage MMA Toulouse, grande salle sports de combat France, boxe États-Unis Toulouse, grappling Toulouse, Hyrox Toulouse, street workout Toulouse, salle de combat Lalande 31200, Boxing Center États-Unis" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="author" content="Boxing Center États-Unis" />
+  <meta name="geo.region" content="FR-31" />
+  <meta name="geo.placename" content="Toulouse — Lalande / États-Unis" />
+  <meta name="geo.position" content="43.6389;1.4231" />
+  <meta name="ICBM" content="43.6389, 1.4231" />
+  <link rel="canonical" href="https://etats-unis.boxingcenter.fr/" />
+  <meta name="theme-color" content="#0c0d0e" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:site_name" content="Boxing Center États-Unis" />
+  <meta property="og:title" content="Boxing Center États-Unis — Le Colosse · la plus grande salle de combat de France" />
+  <meta property="og:description" content="1 200 m² · 3 zones · cage MMA officielle · 2 rings. Boxe, MMA, grappling, Hyrox, street workout. Avenue des États-Unis, Toulouse (31200). Essai 10€." />
+  <meta property="og:url" content="https://etats-unis.boxingcenter.fr/" />
+
+  <!-- Fonts — Cinzel (inscription monumentale) + Archivo (corps) + Space Mono (annotations) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Archivo:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="/assets/css/home.css" />
+
+  <!-- Local SEO structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["SportsActivityLocation","HealthClub","LocalBusiness"],
+    "name": "Boxing Center États-Unis",
+    "url": "https://etats-unis.boxingcenter.fr/",
+    "telephone": "+33562244682",
+    "email": "boxingcenter31@gmail.com",
+    "priceRange": "€€",
+    "address": { "@type": "PostalAddress", "streetAddress": "388 avenue des États-Unis", "postalCode": "31200", "addressLocality": "Toulouse", "addressRegion": "Occitanie", "addressCountry": "FR" },
+    "geo": { "@type": "GeoCoordinates", "latitude": 43.6389, "longitude": 1.4231 },
+    "areaServed": [ {"@type":"Place","name":"Lalande"}, {"@type":"City","name":"Toulouse"}, {"@type":"Place","name":"Les Sept Deniers"} ],
+    "openingHoursSpecification": [{ "@type":"OpeningHoursSpecification", "dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens":"10:00", "closes":"21:30" }],
+    "sport": ["Boxing","Muay Thai","Mixed Martial Arts","Grappling","Cross Training","Calisthenics"],
+    "parentOrganization": { "@type":"Organization", "name":"Boxing Center", "url":"https://boxingcenter.fr/" },
+    "description": "La plus grande salle de France dédiée aux sports de combat : 1 200 m² découpés en 3 zones de 400 m² (percussion & sol avec cage MMA officielle surélevée, deux rings de compétition, prépa physique). Avenue des États-Unis, Toulouse Lalande (31200). Essai 10€."
+  }
+  </script>
+
+  <!-- no-flash + graceful fx flag + palette (Bronze default / Steel remembered) -->
+  <script>
+    document.documentElement.classList.add('fx');
+    try { document.documentElement.setAttribute('data-palette', localStorage.getItem('bc-eu-palette') || 'a'); }
+    catch (e) { document.documentElement.setAttribute('data-palette', 'a'); }
+  </script>
+</head>
+
+<body data-page="home">
+  <canvas id="colosse-canvas" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><div class="cursor__ring"><span class="cursor__label">voir</span></div></div>
+  <div class="cursor__dot" aria-hidden="true"></div>
+
+  <a class="sr-only" href="#main">Aller au contenu</a>
+  <div id="nav"></div>
+  <div id="drawer"></div>
+
+  <main id="main">
+
+    <!-- ============================ HERO ============================ -->
+    <header class="hero" aria-label="Boxing Center États-Unis">
+      <div class="hero__stage" aria-hidden="true">
+        <video id="hero-video" class="hero__src" data-video="/assets/media/clip-bags.mp4" data-poster="/assets/img/eu/hangar.webp" muted loop autoplay playsinline preload="auto"></video>
+      </div>
+
+      <h1 class="sr-only">Boxing Center États-Unis — la plus grande salle de sports de combat de France, Toulouse</h1>
+
+      <div class="hero__inner">
+        <p class="hero__kicker" data-reveal>388 av. des États-Unis · Toulouse · Rocade 33b</p>
+        <div class="hero__plaque">
+          <span class="hero__eyebrow" data-split>Boxing Center · États-Unis</span>
+          <h2 class="hero__title"><span class="hero__word" data-split>Le Colosse</span></h2>
+          <div class="hero__dim" data-reveal>
+            <span class="hero__dim-bar"></span>
+            <span class="hero__dim-val">1 200 m²</span>
+            <span class="hero__dim-bar"></span>
+          </div>
+        </div>
+        <p class="hero__sub" data-reveal>La plus grande salle de France <b>dédiée aux sports de combat.</b> <span class="tint">Trois zones. Un seul toit. Aucune excuse.</span></p>
+        <div class="hero__zones-cue" data-reveal>
+          <span><b>I</b> Percussion &amp; Sol</span>
+          <span><b>II</b> Le Ring</span>
+          <span><b>III</b> Prépa Physique</span>
+        </div>
+        <div class="hero__cta" data-reveal>
+          <a class="btn btn--primary" data-magnetic data-cursor="go" href="/contact/"><span>Ma 1<sup>re</sup> séance · 10€</span></a>
+          <a class="btn" data-magnetic href="/les-zones/"><span>Visiter les 3 zones</span></a>
+        </div>
+      </div>
+
+      <div class="hero__foot" aria-hidden="true">
+        <span class="scroll-cue">Entrez dans le hangar <span class="line"></span></span>
+        <span class="hero__clock"><span id="hero-time">--:--:--</span><i>Toulouse</i></span>
+      </div>
+    </header>
+
+    <!-- ===================== LE HANGAR (manifeste) ================= -->
+    <section class="section intro" data-sector="Le hangar" aria-label="Le hangar">
+      <div class="wrap">
+        <span class="eyebrow" data-reveal>Le hangar</span>
+        <div class="intro__grid" style="margin-top:clamp(1.2rem,3vw,2rem)">
+          <p class="intro__big" data-reveal>Ce n'est pas une salle de sport. C'est un <span class="tint">hangar de combat</span> de 1 200 m².</p>
+          <div class="intro__aside" data-reveal>
+            <p>Un ancien volume industriel, avenue des États-Unis, découpé en trois zones de 400 m². Pieds, poings, sol, cage : tout le spectre des sports de combat tient sous un seul toit.</p>
+            <p>La plus grande surface de France entièrement dédiée au combat. Ici, l'espace ne te bride jamais — et personne n'attend son tour.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LES 3 ZONES (3D walkthrough) ============= -->
+    <section class="zones" id="zones" data-sector="Les 3 zones" aria-label="Les 3 zones du colosse">
+      <div class="zones__sticky">
+        <div class="wrap zones__grid">
+          <div class="zones__head">
+            <span class="eyebrow zones__eyebrow">Le plan du colosse</span>
+            <h2 class="display zones__title">3 zones.<br>400 m² <span class="tint">chacune.</span></h2>
+            <p class="muted zones__intro">Le bâtiment est pensé comme un ring géant découpé en trois. Descends-le zone par zone : la cage, les rings, le moteur. Chacune fait 400 m² et ne partage rien avec les autres.</p>
+            <ol class="zones__rail" id="zones-rail"></ol>
+          </div>
+          <div class="zones__stage" id="zones-stage"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== LA TOISE (stats) ====================== -->
+    <section class="toise" data-sector="La démesure" aria-label="La salle en chiffres">
+      <div class="wrap">
+        <span class="eyebrow" style="padding-top:1.4rem;display:inline-flex" data-reveal>La démesure, en chiffres</span>
+        <div class="stats" id="stats" data-reveal-group></div>
+      </div>
+    </section>
+
+    <!-- ========================= MARQUEE ========================== -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track" id="marquee"></div>
+    </div>
+
+    <!-- ===================== DISCIPLINES (grid) =================== -->
+    <section class="section reel" data-sector="L'arsenal" aria-label="Les disciplines">
+      <div class="reel__head">
+        <div data-reveal>
+          <span class="eyebrow">L'arsenal</span>
+          <h2 class="display" style="margin-top:1rem">Tout le <span class="tint">spectre du combat</span></h2>
+        </div>
+        <a class="btn" data-magnetic href="/activites/"><span>Toutes les activités</span></a>
+      </div>
+      <div class="disc-grid" id="disciplines" data-reveal-group></div>
+    </section>
+
+    <!-- ========================= VALUES ========================== -->
+    <section class="section" data-sector="Le code" aria-label="Le code de la maison">
+      <div class="wrap">
+        <div data-reveal style="margin-bottom:clamp(2rem,5vw,3rem)">
+          <span class="eyebrow">Le code</span>
+          <h2 class="display" style="margin-top:1rem">La démesure sert <span class="tint">quelque chose</span></h2>
+        </div>
+        <div class="values" id="values" data-reveal-group></div>
+      </div>
+    </section>
+
+    <!-- ======================== COACHS ============================ -->
+    <section class="section" data-sector="L'encadrement" aria-label="L'encadrement">
+      <div class="wrap">
+        <div class="reel__head" style="margin-bottom:clamp(2rem,4vw,2.6rem)">
+          <div data-reveal>
+            <span class="eyebrow">L'encadrement</span>
+            <h2 class="display" style="margin-top:1rem">Un spécialiste <span class="tint">par zone</span></h2>
+          </div>
+          <p class="muted" data-reveal style="max-width:34ch">Chaque zone a son coach dédié — la cage, le ring, le moteur. Personne ne t'apprend tout : chacun t'apprend le sien, à fond.</p>
+        </div>
+        <div class="coaches" id="coaches" data-reveal-group></div>
+      </div>
+    </section>
+
+    <!-- ====================== GALLERY TEASER ===================== -->
+    <section class="section gallery" aria-label="La galerie">
+      <div class="wrap">
+        <div class="reel__head" style="margin-bottom:clamp(2rem,4vw,2.6rem)">
+          <div data-reveal>
+            <span class="eyebrow">En images</span>
+            <h2 class="display" style="margin-top:1rem">Le colosse, <span class="tint">en mouvement</span></h2>
+          </div>
+          <p class="muted" data-reveal style="max-width:32ch">La cage, les rings, les sacs, les galas. 1 200 m² qui ne s'arrêtent jamais.</p>
+        </div>
+        <div class="gallery__grid" data-reveal-group>
+          <div class="gallery__cell media" data-reveal data-img="/assets/img/eu/hangar.webp" data-label="Le hangar"></div>
+          <div class="gallery__cell media" data-reveal data-img="/assets/img/eu/boxe-1.webp" data-label="Sur le ring"></div>
+          <div class="gallery__cell media" data-reveal data-img="/assets/img/eu/grappling.webp" data-label="La cage"></div>
+          <div class="gallery__cell media" data-reveal data-img="/assets/img/eu/hyrox.webp" data-label="Prépa physique"></div>
+          <div class="gallery__cell media" data-reveal data-img="/assets/img/eu/thai.webp" data-label="Muay thaï"></div>
+        </div>
+        <a class="btn btn--primary" data-magnetic href="/galerie/" style="margin-top:1.8rem"><span>Voir la galerie</span></a>
+      </div>
+    </section>
+
+    <!-- ========================== TARIFS ========================= -->
+    <section class="section" data-sector="L'offre" aria-label="L'offre">
+      <div class="wrap">
+        <div class="reel__head" style="margin-bottom:clamp(2rem,4vw,2.6rem)">
+          <div data-reveal>
+            <span class="eyebrow">L'offre</span>
+            <h2 class="display" style="margin-top:1rem">Un pass. <span class="tint">Toutes les zones.</span></h2>
+          </div>
+          <a class="btn" data-magnetic href="/tarifs/"><span>Toutes les formules</span></a>
+        </div>
+        <div class="tarifs" id="tarifs" data-reveal-group></div>
+      </div>
+    </section>
+
+    <!-- ========================= LOCAL SEO ======================= -->
+    <section class="section localseo" aria-labelledby="seo-title">
+      <div class="wrap" style="max-width:76ch">
+        <h2 id="seo-title" class="display" style="font-size:clamp(1.8rem,4.2vw,3rem);margin-bottom:1rem">La plus grande salle de sports de combat de France — Toulouse États-Unis (Lalande, 31200)</h2>
+        <p class="lead">Boxing Center États-Unis, c'est <strong>1 200 m²</strong> avenue des États-Unis à Toulouse, quartier <strong>Lalande</strong>, à deux minutes de la rocade (sortie 33b) avec grand parking gratuit. La salle est découpée en <strong>trois zones de 400 m²</strong> : une zone percussion & sol avec <strong>cage MMA officielle surélevée</strong>, une zone ring avec <strong>deux rings de compétition</strong>, et une zone prépa physique avec 16 sacs lourds, cage cross-training et un coach <strong>street workout</strong> dédié.</p>
+        <p class="lead" style="margin-top:1rem">Boxe anglaise, kick, muay thaï, full contact, grappling, MMA, Hyrox, callisthénie : <strong>tout le spectre des sports de combat</strong> sous un même toit. Première visite ? Réserve ta <strong>séance d'essai à 10€</strong>, toutes zones, sans engagement. 388 avenue des États-Unis, 31200 Toulouse — ouvert du lundi au samedi, 10h–21h30.</p>
+      </div>
+    </section>
+
+    <!-- ========================= FINAL GONG ====================== -->
+    <section class="gong" aria-label="Rejoindre la salle">
+      <div class="gong__bg" aria-hidden="true"><div class="media" data-img="/assets/img/eu/hangar-2.webp" data-label=""></div></div>
+      <div class="gong__inner">
+        <span class="eyebrow" style="justify-content:center" data-reveal>Le gong final</span>
+        <h2 class="display gong__title" data-reveal>1 200 m² t'attendent.<br><span class="tint">Viens les remplir.</span></h2>
+        <p class="lead" data-reveal>10€, les trois zones, sans engagement. La seule chose que tu risques, c'est d'y prendre goût. 388 avenue des États-Unis, Toulouse Lalande.</p>
+        <div class="gong__cta" data-reveal>
+          <a class="btn btn--primary" data-magnetic href="/contact/"><span>Réserver ma 1<sup>re</sup> séance</span></a>
+          <a class="btn" data-magnetic href="tel:+33562244682"><span>05 62 24 46 82</span></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer"></div>
+
+  <!-- chatbot placeholder (maquette) -->
+  <a class="chatbot" href="#" aria-label="Poser une question à l'assistant Boxing Center">
+    <span class="chatbot__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
+    <span class="chatbot__label">Une question&nbsp;?</span>
+  </a>
+
+  <!-- Libs (CDN — la team remplace par des imports npm en Astro/Next) -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+  <script type="module" src="/assets/js/site.js?v=3d1"></script>
+  <script type="module" src="/assets/js/home.js?v=3d1"></script>
+</body>
+</html>
