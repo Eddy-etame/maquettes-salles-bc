@@ -1,0 +1,186 @@
+/* =====================================================================
+   BOXING CENTER — SAINT-CYPRIEN · "LE NEUF"
+   base.css — design system. THE SHOWROOM AT NIGHT: near-black room, and
+   LIGHT ITSELF as the object — white-hot beams, chrome type, a spotlight
+   that follows the cursor. NOT a light theme (rejected). Product-launch
+   precision (Space Grotesk / Inter / IBM Plex Mono), the opposite of
+   Minimes' grunge, the Colosse's monument, Portet's navy arena.
+
+   LEGIBILITY LAW: body = #e9ecf4 on #0b0d14 ≈ 15:1. The white-hot accent
+   #f6f8fc is used for LIGHT (beams, CTA, chrome), never as small body text
+   it can't carry; muted labels #8b93a8 ≈ 6.4:1 — pass AA.
+   ===================================================================== */
+
+/* ----------------------------- TOKENS ----------------------------- */
+/* THE SHOWROOM AT NIGHT. The "neuf" is LIGHT ITSELF — white-hot beams and
+   chrome on near-black. NOT a light theme (rejected hard): light as the
+   OBJECT, dark as the room. Distinct from Minimes (red), Colosse (bronze/
+   steel + navy), Portet (silver on navy): St-Cyprien's metal is WHITE LIGHT. */
+:root {
+  --void:     #06070b;   /* the dark room */
+  --paper:    #0b0d14;   /* base (name kept so components re-skin cleanly) */
+  --paper-2:  #12151f;   /* raised panel */
+  --paper-3:  #1a1e2c;   /* pressed */
+  --white:    #12151f;   /* legacy alias — raised surface on dark */
+  --ink:      #e9ecf4;   /* text — ~15:1 on base */
+  --ink-soft: #c3c9d8;
+  --muted:    #8b93a8;   /* labels — ≥5.5:1 */
+  --spark:    #f6f8fc;   /* THE accent — white-hot light */
+  --spark-2:  #aeb7cc;   /* chrome mid */
+  --line:     rgba(233,236,244,.13);
+  --line-soft:rgba(233,236,244,.06);
+  --shadow:   0 22px 60px -20px rgba(0,0,0,.75);
+  --glow:     0 0 34px rgba(246,248,252,.16);
+  --chrome:   linear-gradient(115deg, #f6f8fc 8%, #9aa3b8 38%, #e9ecf4 55%, #7c8499 78%, #f6f8fc 100%);
+
+  --bg: var(--paper);
+  --fg: var(--ink);
+  --accent: var(--spark);
+
+  /* Type — product precision */
+  --f-display:"Space Grotesk", "Arial", sans-serif;
+  --f-ui:     "Inter", system-ui, sans-serif;
+  --f-mono:   "IBM Plex Mono", ui-monospace, monospace;
+
+  --step--1: clamp(.78rem, .72rem + .3vw, .9rem);
+  --step-0:  clamp(1rem, .94rem + .3vw, 1.12rem);
+  --step-1:  clamp(1.25rem, 1.05rem + 1vw, 1.8rem);
+  --step-2:  clamp(2rem, 1.4rem + 2.8vw, 3.8rem);
+  --step-3:  clamp(2.7rem, 1.5rem + 5.6vw, 6.6rem);
+
+  --wrap: min(92vw, 1280px);
+  --gut: clamp(1.2rem, 4vw, 3rem);
+  --sec: clamp(4.5rem, 9vw, 9.5rem);
+
+  --ease: cubic-bezier(.22,.61,.36,1);
+  --ease-out: cubic-bezier(.16,1,.3,1);
+  --ease-spring: cubic-bezier(.34,1.4,.4,1);
+  --radius: 14px;   /* the light salle has soft, product corners */
+}
+
+/* ----------------------------- RESET ------------------------------ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  font-family: var(--f-ui);
+  font-size: var(--step-0); line-height: 1.6;
+  color: var(--fg); background: var(--bg);
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+img, video, svg, canvas { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+ul { list-style: none; }
+::selection { background: var(--spark); color: var(--void); }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+html.is-locked, html.is-locked body { overflow: hidden; height: 100%; }
+
+/* --------------------------- LAYOUT ------------------------------- */
+.wrap { width: var(--wrap); margin-inline: auto; }
+.section { padding-block: var(--sec); position: relative; }
+.split { display: grid; gap: clamp(2rem,5vw,5rem); grid-template-columns: 1fr; }
+@media (min-width: 900px){ .split { grid-template-columns: 1.05fr 1fr; align-items: center; } }
+
+.eyebrow { display: inline-flex; align-items: center; gap: .8ch; font: 600 var(--step--1)/1 var(--f-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--spark); }
+.eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--spark); }
+
+.display { font-family: var(--f-display); font-weight: 700; line-height: 1.0; letter-spacing: -.03em; font-size: var(--step-3); color: var(--ink); }
+/* the Neuf's metal is LIGHT: accent lines are cast in chrome */
+.tint { background: var(--chrome); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lead { font-size: var(--step-1); line-height: 1.45; color: var(--ink-soft); font-weight: 450; letter-spacing: -.01em; }
+.muted { color: var(--muted); }
+.reveal-mask { display: block; overflow: hidden; }
+.reveal-mask > span { display: block; }
+html.fx .reveal-mask > span { opacity: 0; }
+html.fx [data-reveal] { opacity: 0; transform: translateY(30px); }
+
+/* ---------------------------- BUTTONS ----------------------------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .8ch; padding: .95em 1.6em; font: 600 var(--step--1)/1 var(--f-ui); letter-spacing: .02em; border-radius: 100px; position: relative; color: var(--ink); border: 1.5px solid var(--line); background: var(--white); transition: transform .35s var(--ease-spring), box-shadow .35s var(--ease), border-color .3s, background .3s, color .3s; }
+.btn:hover { transform: translateY(-2px); box-shadow: var(--glow); border-color: var(--spark); }
+/* primary CTA = the white-hot light itself */
+.btn--primary { background: var(--spark); border-color: var(--spark); color: var(--void); }
+.btn--primary:hover { background: #ffffff; box-shadow: var(--glow), var(--shadow); }
+.btn sup { font-size: .6em; }
+
+/* ----------------------------- NAV -------------------------------- */
+.nav { position: fixed; inset: 0 0 auto 0; z-index: 8000; display: flex; align-items: center; justify-content: space-between; padding: clamp(.8rem,1.8vw,1.1rem) var(--gut); transition: transform .5s var(--ease), background .4s, box-shadow .4s; }
+.nav.is-scrolled { background: rgba(11,13,20,.78); backdrop-filter: blur(14px); box-shadow: 0 1px 0 var(--line); }
+.nav.is-hidden { transform: translateY(-110%); }
+html.is-menu-open .nav { opacity: 0; visibility: hidden; pointer-events: none; transition: none; }
+.nav__brand { display: inline-flex; align-items: center; gap: .9ch; }
+/* official white logo, transparent, straight on the dark room — no filter */
+.nav__logo { height: clamp(24px, 3vw, 32px); width: auto; transition: opacity .3s; }
+.nav__brand:hover .nav__logo { opacity: .75; }
+.nav__salle { font: 600 var(--step--1)/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--spark); padding-left: .9ch; border-left: 1px solid var(--line); }
+.nav__links { display: none; gap: clamp(.2rem,1vw,.6rem); }
+.nav__links a { font: 550 var(--step--1)/1 var(--f-ui); padding: .55em .95em; border-radius: 100px; color: var(--ink-soft); transition: background .3s, color .3s; }
+.nav__links a:hover { background: var(--paper-2); color: var(--ink); }
+.nav__links a[aria-current="page"] { background: var(--ink); color: var(--paper); }
+.nav__right { display: flex; align-items: center; gap: .8rem; }
+.nav__cta { display: none; }
+@media (min-width: 1100px){ .nav__links { display: flex; } .nav__cta { display: inline-flex; } }
+.burger { display: inline-flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; padding: 0 11px; border: 1.5px solid var(--line); border-radius: 50%; background: var(--white); transition: border-color .3s; }
+.burger:hover { border-color: var(--ink); }
+.burger span { height: 2px; background: var(--ink); border-radius: 2px; transform-origin: center; transition: transform .4s var(--ease-spring), opacity .25s; }
+.is-menu-open .burger span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+.is-menu-open .burger span:nth-child(2){ opacity: 0; }
+.is-menu-open .burger span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+
+/* ---------------------- FULL-SCREEN MENU -------------------------- */
+.menu { position: fixed; inset: 0; z-index: 7990; background: var(--paper); color: var(--ink); display: grid; grid-template-rows: auto 1fr auto; padding: clamp(1.2rem,3vw,2rem) var(--gut) clamp(1.5rem,3vw,2.4rem); clip-path: inset(0 0 100% 0); pointer-events: none; transition: clip-path .65s var(--ease-out); }
+.menu.is-open { clip-path: inset(0 0 0 0); pointer-events: auto; }
+.menu__top { display: flex; justify-content: space-between; align-items: center; }
+.menu__close { font: 600 var(--step--1)/1 var(--f-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--ink); display: inline-flex; align-items: center; gap: .7ch; }
+.menu__nav { align-self: center; display: flex; flex-direction: column; gap: clamp(.1rem,.8vw,.3rem); }
+.menu__link { font-family: var(--f-display); font-weight: 700; font-size: clamp(2.2rem,9vw,5.6rem); letter-spacing: -.03em; line-height: 1.04; color: var(--ink); display: inline-flex; align-items: baseline; gap: 1.1rem; width: max-content; max-width: 100%; transition: color .3s, transform .5s var(--ease-out); }
+.menu__link .n { font: 600 clamp(.65rem,1.3vw,.9rem)/1 var(--f-mono); color: var(--spark); }
+.menu__link:hover { color: var(--spark); transform: translateX(14px); }
+.menu__foot { display: flex; flex-wrap: wrap; gap: 1rem 2rem; justify-content: space-between; align-items: center; border-top: 1px solid var(--line); padding-top: 1.4rem; }
+.menu__foot a { font: 600 var(--step--1)/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); transition: color .3s; }
+.menu__foot a:hover { color: var(--spark); }
+
+/* --------------------------- TICKER ------------------------------- */
+.marquee { overflow: hidden; border-block: 1px solid var(--line); padding-block: .85rem; background: var(--white); }
+.marquee__track { display: inline-flex; gap: 2.4rem; white-space: nowrap; will-change: transform; }
+.marquee__track span { font: 600 var(--step--1)/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); display: inline-flex; align-items: center; gap: 2.4rem; }
+.marquee__track span::after { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--spark); }
+
+/* ----------------------- CHATBOT placeholder ---------------------- */
+.chatbot { position: fixed; right: clamp(1rem,2.5vw,2rem); bottom: clamp(1rem,2.5vw,2rem); z-index: 8500; height: 54px; width: 54px; display: inline-flex; align-items: center; overflow: hidden; background: var(--ink); color: var(--paper); border-radius: 100px; box-shadow: var(--shadow); transition: width .45s var(--ease-spring), transform .35s var(--ease); }
+.chatbot__icon { flex: 0 0 54px; width: 54px; height: 54px; display: grid; place-items: center; }
+.chatbot__icon svg { width: 22px; height: 22px; }
+.chatbot__label { white-space: nowrap; font: 600 var(--step--1)/1 var(--f-ui); padding-right: 1.4rem; opacity: 0; transform: translateX(-8px); transition: opacity .3s, transform .35s var(--ease); }
+.chatbot:hover { width: 13.5rem; transform: translateY(-3px); }
+.chatbot:hover .chatbot__label { opacity: 1; transform: none; }
+
+/* ------------------- FOOTER — la fiche technique ------------------ */
+.footer { background: var(--white); border-top: 1px solid var(--line); padding-block: clamp(3rem,6vw,4.5rem) 2rem; }
+.footer__head { display: grid; gap: 1.6rem; grid-template-columns: 1fr; align-items: end; }
+@media (min-width: 820px){ .footer__head { grid-template-columns: 1fr auto; } }
+.footer__cut { font-size: clamp(2rem,5vw,3.8rem); margin-top: 1rem; }
+.fiche { display: grid; grid-template-columns: repeat(2,1fr); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; margin-top: clamp(2rem,4vw,3rem); background: var(--paper); }
+@media (min-width: 760px){ .fiche { grid-template-columns: repeat(4,1fr); } }
+.fiche__cell { padding: clamp(1rem,1.8vw,1.4rem); border-right: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); display: flex; flex-direction: column; gap: .45rem; min-height: 5.4rem; justify-content: center; transition: background .3s; }
+.fiche__cell:hover { background: var(--white); }
+.fiche__cell--wide { grid-column: span 2; }
+.fk { font: 600 .6rem/1 var(--f-mono); letter-spacing: .18em; text-transform: uppercase; color: var(--spark); }
+.fv { font-size: var(--step-0); color: var(--ink); font-weight: 500; }
+.fv a { transition: color .3s; } .fv a:hover { color: var(--spark); }
+.footer__links { display: grid; gap: 1.6rem 2rem; grid-template-columns: repeat(2,1fr); margin-top: clamp(2rem,4vw,3rem); }
+@media (min-width: 720px){ .footer__links { grid-template-columns: repeat(3,1fr); } }
+.footer__col h4 { font: 600 var(--step--1)/1 var(--f-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--spark); margin-bottom: .9rem; }
+.footer__col a:not(.btn) { display: block; color: var(--muted); padding-block: .3em; transition: color .3s, padding-left .3s; }
+.footer__col a:not(.btn):hover { color: var(--ink); padding-left: .4ch; }
+.footer__bottom { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; margin-top: clamp(2rem,4vw,3rem); padding-top: 1.5rem; border-top: 1px solid var(--line); font: 600 var(--step--1)/1 var(--f-mono); letter-spacing: .06em; color: var(--muted); }
+.footer__stamp { color: var(--spark); }
+
+/* --------------------------- HELPERS ------------------------------ */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.scroll-cue { display: inline-flex; align-items: center; gap: 1ch; font: 600 var(--step--1)/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.scroll-cue .line { width: 54px; height: 1.5px; background: var(--line); position: relative; overflow: hidden; }
+.scroll-cue .line::after { content: ""; position: absolute; inset: 0; background: var(--spark); transform: translateX(-100%); animation: cue 2s var(--ease) infinite; }
+@keyframes cue { 0%{transform:translateX(-100%)} 60%,100%{transform:translateX(100%)} }

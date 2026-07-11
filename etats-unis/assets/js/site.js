@@ -144,6 +144,15 @@ function mountFooter() {
         </div>
       </div>
     </footer>`;
+
+  // the architect's stamp HITS the sheet when it scrolls into view
+  const stamp = document.querySelector(".footer__stamp");
+  if (stamp && "IntersectionObserver" in window && !reduce) {
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting) { stamp.classList.add("is-stamped"); io.disconnect(); }
+    }), { threshold: 0.4 });
+    io.observe(stamp);
+  } else if (stamp) stamp.classList.add("is-stamped");
 }
 
 /* ------------------------------ LENIS ----------------------------- */
@@ -251,6 +260,22 @@ function reveal(scope = document) {
     gsap.set(kids, { opacity: 0, y: 40 });
     gsap.to(kids, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out", stagger: 0.08, scrollTrigger: { trigger: g, start: "top 88%" } });
   });
+
+  // Dead-man net (legibility law): if the gsap ticker is FROZEN (throttled
+  // tab, degraded webview), every bound reveal would hold its content at
+  // opacity 0 forever. setTimeout fires independently of rAF — if no frame
+  // has advanced by then, force everything readable and drop the fx flag.
+  if (!reveal._net && gsap) {
+    reveal._net = true;
+    const f0 = gsap.ticker.frame;
+    setTimeout(() => {
+      if (gsap.ticker.frame !== f0) return; // motion is alive — let reveals play
+      document.documentElement.classList.remove("fx");
+      document.querySelectorAll(".reveal-mask > span, [data-reveal], [data-reveal-group] > *").forEach((el) => {
+        el.style.opacity = "1"; el.style.transform = "none";
+      });
+    }, 3500);
+  }
 }
 
 /* --------------------------- MEDIA HYDRATE ------------------------ */
@@ -312,7 +337,7 @@ function initKinetics() {
 function initPaletteToggle() {
   const btn = document.getElementById("pal-toggle");
   if (!btn) return;
-  const KEY = "bc-eu-palette";
+  const KEY = "bc-eu-palette-v2"; // v2: Steel is the default now
   const apply = (p) => {
     document.documentElement.setAttribute("data-palette", p);
     btn.setAttribute("aria-pressed", String(p === "b"));
@@ -328,6 +353,17 @@ const refresh = () => ScrollTrigger?.refresh();
 
 /* ------------------------------ BOOT ------------------------------ */
 window.BC = { reveal, magnetic, refresh, media: hydrateMedia, split, scramble, initKinetics, get lenis() { return lenis; }, get velocity() { return velocity; } };
+/* preloader — dismiss on load (cap 2.2s); the CSS dead-man's switch at 3s is
+   the guarantee, this is just the fast path */
+(function () {
+  const el = document.getElementById("loader");
+  if (!el) return;
+  const done = () => { el.classList.add("is-done"); setTimeout(() => { try { el.remove(); } catch (e) {} }, 900); };
+  if (document.readyState === "complete") setTimeout(done, 400);
+  else window.addEventListener("load", () => setTimeout(done, 400), { once: true });
+  setTimeout(done, 2200);
+})();
+
 mountNav();
 initPaletteToggle();
 mountFooter();

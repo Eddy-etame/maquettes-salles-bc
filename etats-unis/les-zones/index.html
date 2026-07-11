@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Les 3 zones — Boxing Center États-Unis, Toulouse : cage MMA, deux rings, prépa physique</title>
+  <meta name="description" content="Visitez les trois zones de 400 m² de la plus grande salle de combat de France : percussion & sol avec cage MMA officielle (JJB, grappling), deux rings de compétition (anglaise, pieds-poings dès 3 ans), et prépa physique (Hyrox, HIIT, cross-training, Lady Punch). Plannings 2026-2027 et encadrement par zone." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://etats-unis.boxingcenter.fr/les-zones/" />
+  <meta name="theme-color" content="#0c0f14" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_FR" />
+  <meta property="og:title" content="Les 3 zones du Colosse — Boxing Center États-Unis" />
+  <meta property="og:description" content="1 200 m² découpés en trois zones de 400 m² : la cage, les rings, le moteur. Plannings 2026-2027 et coachs par zone." />
+
+  <!-- Fonts — Cinzel (inscription monumentale) + Archivo + Space Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Archivo:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/assets/css/base.css?v=3d7" />
+  <link rel="stylesheet" href="/assets/css/home.css?v=3d7" />
+
+  <!-- no-flash + fx + palette (Steel default / Bronze on the toggle) -->
+  <script>
+    document.documentElement.classList.add('fx');
+    try { document.documentElement.setAttribute('data-palette', localStorage.getItem('bc-eu-palette-v2') || 'b'); }
+    catch (e) { document.documentElement.setAttribute('data-palette', 'b'); }
+  </script>
+</head>
+
+<body data-page="les-zones">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><div class="cursor__ring"><span class="cursor__label">voir</span></div></div>
+  <div class="cursor__dot" aria-hidden="true"></div>
+
+  <a class="sr-only" href="#main">Aller au contenu</a>
+  <div id="nav"></div>
+  <div id="drawer"></div>
+
+  <main id="main">
+
+    <!-- ========================= EN-TÊTE ========================== -->
+    <section class="section zp-head" aria-label="Le plan du colosse">
+      <div class="wrap">
+        <span class="eyebrow" data-reveal>Le plan du colosse · Saison 2026 — 2027</span>
+        <h1 class="display" style="margin:1rem 0 1.2rem"><span class="reveal-mask"><span>Trois zones.</span></span><span class="reveal-mask"><span class="tint">Un seul toit.</span></span></h1>
+        <p class="lead" data-reveal style="max-width:54ch">1 200 m² découpés en trois plateaux de 400 m² qui ne partagent rien : la cage et le sol, les deux rings, le moteur. Descends le hangar zone par zone — chacune a ses cours, son planning et ses coachs.</p>
+        <div class="hero__dim" data-reveal style="margin-top:1.4rem">
+          <span class="hero__dim-bar" style="transform:none"></span>
+          <span class="hero__dim-val">3 × 400 m²</span>
+          <span class="hero__dim-bar" style="transform:none"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== LES ZONES (rendues) ==================== -->
+    <div id="zones-detail"></div>
+
+    <!-- ========================= FINAL CTA ======================== -->
+    <section class="gong" aria-label="Réserver une séance">
+      <div class="gong__inner">
+        <span class="eyebrow" style="justify-content:center" data-reveal>Le gong final</span>
+        <h2 class="display gong__title"><span class="reveal-mask"><span>Une séance d'essai.</span></span><span class="reveal-mask"><span class="tint">Les trois zones.</span></span></h2>
+        <p class="lead" data-reveal>10€, sans engagement, matériel prêté. Rocade sortie 33b, grand parking gratuit. Viens voir la démesure de tes propres yeux.</p>
+        <div class="gong__cta" data-reveal>
+          <a class="btn btn--primary" data-magnetic href="/contact/"><span>Réserver ma 1<sup>re</sup> séance</span></a>
+          <a class="btn" data-magnetic href="tel:+33562244682"><span>05 62 24 46 82</span></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer"></div>
+
+  <!-- Libs (CDN — la team remplace par des imports npm en Astro/Next) -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script type="module" src="/assets/js/site.js?v=3d7"></script>
+  <script type="module" src="/assets/js/zonespage.js?v=3d7"></script>
+</body>
+</html>

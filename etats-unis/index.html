@@ -28,8 +28,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800;900&family=Archivo:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="/assets/css/base.css" />
-  <link rel="stylesheet" href="/assets/css/home.css" />
+  <link rel="stylesheet" href="/assets/css/base.css?v=3d7" />
+  <link rel="stylesheet" href="/assets/css/home.css?v=3d7" />
 
   <!-- Local SEO structured data -->
   <script type="application/ld+json">
@@ -51,15 +51,26 @@
   }
   </script>
 
-  <!-- no-flash + graceful fx flag + palette (Bronze default / Steel remembered) -->
+  <!-- no-flash + graceful fx flag + palette (STEEL default / Bronze one toggle away)
+       key is v2 so the new default beats palettes remembered from older builds -->
   <script>
     document.documentElement.classList.add('fx');
-    try { document.documentElement.setAttribute('data-palette', localStorage.getItem('bc-eu-palette') || 'a'); }
-    catch (e) { document.documentElement.setAttribute('data-palette', 'a'); }
+    try { document.documentElement.setAttribute('data-palette', localStorage.getItem('bc-eu-palette-v2') || 'b'); }
+    catch (e) { document.documentElement.setAttribute('data-palette', 'b'); }
   </script>
 </head>
 
 <body data-page="home">
+  <!-- preloader: the plaque stamps in while assets arrive. JS dismisses it on
+       load (cap 2.2s) and a pure-CSS animation kills it at 3s no matter what —
+       it can never stay stuck over the content. -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__box">
+      <span class="loader__brand">Boxing Center · États-Unis</span>
+      <span class="loader__word">Le Colosse</span>
+      <span class="loader__dim"><i></i><b>1 200 m²</b><i></i></span>
+    </div>
+  </div>
   <canvas id="colosse-canvas" aria-hidden="true"></canvas>
   <div class="grain" aria-hidden="true"></div>
   <div class="vignette" aria-hidden="true"></div>
@@ -129,7 +140,7 @@
         <div class="wrap zones__grid">
           <div class="zones__head">
             <span class="eyebrow zones__eyebrow">Le plan du colosse</span>
-            <h2 class="display zones__title">3 zones.<br>400 m² <span class="tint">chacune.</span></h2>
+            <h2 class="display zones__title"><span class="reveal-mask"><span>3 zones.</span></span><span class="reveal-mask"><span>400 m² <span class="tint">chacune.</span></span></span></h2>
             <p class="muted zones__intro">Le bâtiment est pensé comme un ring géant découpé en trois. Descends-le zone par zone : la cage, les rings, le moteur. Chacune fait 400 m² et ne partage rien avec les autres.</p>
             <ol class="zones__rail" id="zones-rail"></ol>
           </div>
@@ -156,7 +167,7 @@
       <div class="reel__head">
         <div data-reveal>
           <span class="eyebrow">L'arsenal</span>
-          <h2 class="display" style="margin-top:1rem">Tout le <span class="tint">spectre du combat</span></h2>
+          <h2 class="display" style="margin-top:1rem"><span class="reveal-mask"><span>Tout le</span></span><span class="reveal-mask"><span class="tint">spectre du combat</span></span></h2>
         </div>
         <a class="btn" data-magnetic href="/activites/"><span>Toutes les activités</span></a>
       </div>
@@ -168,7 +179,7 @@
       <div class="wrap">
         <div data-reveal style="margin-bottom:clamp(2rem,5vw,3rem)">
           <span class="eyebrow">Le code</span>
-          <h2 class="display" style="margin-top:1rem">La démesure sert <span class="tint">quelque chose</span></h2>
+          <h2 class="display" style="margin-top:1rem"><span class="reveal-mask"><span>La démesure sert</span></span><span class="reveal-mask"><span class="tint">quelque chose</span></span></h2>
         </div>
         <div class="values" id="values" data-reveal-group></div>
       </div>
@@ -180,9 +191,9 @@
         <div class="reel__head" style="margin-bottom:clamp(2rem,4vw,2.6rem)">
           <div data-reveal>
             <span class="eyebrow">L'encadrement</span>
-            <h2 class="display" style="margin-top:1rem">Un spécialiste <span class="tint">par zone</span></h2>
+            <h2 class="display" style="margin-top:1rem"><span class="reveal-mask"><span>Un spécialiste</span></span><span class="reveal-mask"><span class="tint">par zone</span></span></h2>
           </div>
-          <p class="muted" data-reveal style="max-width:34ch">Chaque zone a son coach dédié — la cage, le ring, le moteur. Personne ne t'apprend tout : chacun t'apprend le sien, à fond.</p>
+          <p class="muted" data-reveal style="max-width:36ch">Chaque zone a son spécialiste — la cage, le ring, le moteur. Ici, l'encadrement du réseau Boxing Center : personne ne t'apprend tout, chacun t'apprend le sien, à fond.</p>
         </div>
         <div class="coaches" id="coaches" data-reveal-group></div>
       </div>
@@ -194,7 +205,7 @@
         <div class="reel__head" style="margin-bottom:clamp(2rem,4vw,2.6rem)">
           <div data-reveal>
             <span class="eyebrow">En images</span>
-            <h2 class="display" style="margin-top:1rem">Le colosse, <span class="tint">en mouvement</span></h2>
+            <h2 class="display" style="margin-top:1rem"><span class="reveal-mask"><span>Le colosse,</span></span><span class="reveal-mask"><span class="tint">en mouvement</span></span></h2>
           </div>
           <p class="muted" data-reveal style="max-width:32ch">La cage, les rings, les sacs, les galas. 1 200 m² qui ne s'arrêtent jamais.</p>
         </div>
@@ -215,7 +226,7 @@
         <div class="reel__head" style="margin-bottom:clamp(2rem,4vw,2.6rem)">
           <div data-reveal>
             <span class="eyebrow">L'offre</span>
-            <h2 class="display" style="margin-top:1rem">Un pass. <span class="tint">Toutes les zones.</span></h2>
+            <h2 class="display" style="margin-top:1rem"><span class="reveal-mask"><span>Un pass.</span></span><span class="reveal-mask"><span class="tint">Toutes les zones.</span></span></h2>
           </div>
           <a class="btn" data-magnetic href="/tarifs/"><span>Toutes les formules</span></a>
         </div>
@@ -237,7 +248,7 @@
       <div class="gong__bg" aria-hidden="true"><div class="media" data-img="/assets/img/eu/hangar-2.webp" data-label=""></div></div>
       <div class="gong__inner">
         <span class="eyebrow" style="justify-content:center" data-reveal>Le gong final</span>
-        <h2 class="display gong__title" data-reveal>1 200 m² t'attendent.<br><span class="tint">Viens les remplir.</span></h2>
+        <h2 class="display gong__title"><span class="reveal-mask"><span>1 200 m² t'attendent.</span></span><span class="reveal-mask"><span class="tint">Viens les remplir.</span></span></h2>
         <p class="lead" data-reveal>10€, les trois zones, sans engagement. La seule chose que tu risques, c'est d'y prendre goût. 388 avenue des États-Unis, Toulouse Lalande.</p>
         <div class="gong__cta" data-reveal>
           <a class="btn btn--primary" data-magnetic href="/contact/"><span>Réserver ma 1<sup>re</sup> séance</span></a>
@@ -261,7 +272,7 @@
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
-  <script type="module" src="/assets/js/site.js?v=3d1"></script>
-  <script type="module" src="/assets/js/home.js?v=3d1"></script>
+  <script type="module" src="/assets/js/site.js?v=3d7"></script>
+  <script type="module" src="/assets/js/home.js?v=3d7"></script>
 </body>
 </html>

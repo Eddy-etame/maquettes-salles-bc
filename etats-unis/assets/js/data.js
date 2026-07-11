@@ -139,8 +139,11 @@ export const VALUES = [
   { n: "04", t: "Le sérieux", d: "Normes de compétition, coachs spécialisés, cage officielle. Le loisir a le niveau du haut niveau." },
 ];
 
-/* Les coachs — encadrement réel Boxing Center (photos placeholder à valider
-   avec la salle États-Unis ; palmarès à confirmer). */
+/* Les coachs — VRAIS coachs du réseau Boxing Center (noms = photos, jamais
+   croisés). ⚠ La salle États-Unis a son propre staff (recherche 2026-07 :
+   Zouhir — street workout dédié ; Renaud) → remplacer noms+photos ensemble
+   dès que le club fournit le reportage États-Unis. La section est cadrée
+   "l'encadrement du réseau" en attendant — aucun palmarès inventé. */
 export const COACHES = [
   { name: "Boumenir", role: "Percussion & Sol", tag: "Grappling · MMA", note: "Le sol, la cage, le contrôle. Il t'apprend à rester lucide quand tout se resserre.", img: "/assets/img/eu/coach-boumenir.webp" },
   { name: "Chavaudra", role: "Le Ring", tag: "Anglaise · Thaï", note: "Deux rings, un œil qui ne rate rien. La technique avant la force, toujours.", img: "/assets/img/eu/coach-chavaudra.webp" },

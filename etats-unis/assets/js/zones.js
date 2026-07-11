@@ -9,6 +9,42 @@
 const gsap = window.gsap;
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+/* shared audio state — the HUD button arms it; the walkthrough spends it */
+let soundOn = false, actx = null;
+
+/* Per-zone transition cue (spatial, Cartier lesson): a filtered-noise sweep,
+   panned across the stereo field, whose voice differs per room — I rumbles
+   (the cage), II sits mid (the rings), III rings metallic (the bags). NOT the
+   same ding everywhere; distinct from the sector clang. Gated on the same
+   opt-in sound toggle. */
+export function zoneWhoosh(i) {
+  if (!soundOn || !actx) return;
+  try {
+    const t = actx.currentTime;
+    const dur = 0.8;
+    const n = actx.createBufferSource();
+    const buf = actx.createBuffer(1, Math.floor(actx.sampleRate * dur), actx.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let k = 0; k < d.length; k++) d[k] = (Math.random() * 2 - 1) * Math.pow(1 - k / d.length, 1.6);
+    n.buffer = buf;
+    const bp = actx.createBiquadFilter(); bp.type = "bandpass"; bp.Q.value = 1.1;
+    bp.frequency.setValueAtTime(90, t);
+    bp.frequency.exponentialRampToValueAtTime([170, 420, 780][i] || 400, t + dur * 0.7);
+    const g = actx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(0.09, t + 0.12);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    const pan = actx.createStereoPanner ? actx.createStereoPanner() : null;
+    if (pan) {
+      pan.pan.setValueAtTime(i % 2 ? 0.5 : -0.5, t);
+      pan.pan.linearRampToValueAtTime(i % 2 ? -0.2 : 0.2, t + dur);
+      n.connect(bp); bp.connect(pan); pan.connect(g);
+    } else { n.connect(bp); bp.connect(g); }
+    g.connect(actx.destination);
+    n.start(t);
+  } catch (e) {}
+}
+
 export function initSectors() {
   const sections = document.querySelectorAll("[data-sector]");
   if (!sections.length) return;
@@ -30,7 +66,7 @@ export function initSectors() {
   const ticks = hud.querySelectorAll(".hud__ticks i");
   const soundBtn = hud.querySelector(".hud__sound");
 
-  let current = 0, soundOn = false, actx = null;
+  let current = 0; // soundOn/actx live at module scope (shared with zoneWhoosh)
 
   /* deep metallic clang — noise burst through a band-pass, a couple of
      partials on top. The hangar-door hit, not a boxing bell. */
@@ -95,6 +131,7 @@ export function initSectors() {
     for (const s of list) if (s.el.getBoundingClientRect().top <= line) active = s;
     if (active) setSector(active.n, active.name);
     if (heroEl) hud.classList.toggle("is-on", heroEl.getBoundingClientRect().bottom < window.innerHeight * 0.5);
+    else hud.classList.toggle("is-on", (window.scrollY || window.pageYOffset || 0) > 240); // subpages have no hero
   };
   const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(measure); } };
   if (window.BC && window.BC.lenis) window.BC.lenis.on("scroll", onScroll);

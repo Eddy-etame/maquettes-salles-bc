@@ -5,8 +5,8 @@
    ===================================================================== */
 import { STATS, DISCIPLINES, ZONES, VALUES, COACHES, TARIFS, MEDIA } from "./data.js";
 import { initHero } from "./hero.js";
-import { initSectors } from "./zones.js";
-import { initColosse3D } from "./colosse3d.js";
+import { initSectors, zoneWhoosh } from "./zones.js?v=3d7"; // versioned: python http.server caches hard
+import { initColosse3D } from "./colosse3d.js?v=3d7";
 
 const gsap = window.gsap;
 const ScrollTrigger = window.ScrollTrigger;
@@ -108,7 +108,9 @@ function countUp() {
       onEnter: () => {
         const o = { v: 0 };
         gsap.to(o, { v: end, duration: 1.6, ease: "power2.out", onUpdate: () => (el.textContent = nf.format(Math.round(o.v))) });
-        const lbl = el.closest(".stat")?.querySelector(".stat__l");
+        const stat = el.closest(".stat");
+        if (stat) stat.classList.add("is-lit");           // the accent rule draws itself
+        const lbl = stat?.querySelector(".stat__l");
         if (lbl) window.BC.scramble(lbl, { dur: 600 });
       },
     });
@@ -128,7 +130,29 @@ function zonesScroll() {
   const ticks = [...document.querySelectorAll("#zones-rail .zone__tick")];
   const n = zones.length;
   let curr = -1;
+  // the rail is a table of contents — click (or Enter/Space) a zone to glide
+  // to its hold on the walkthrough. Bound in BOTH modes (3D and fallback).
+  const HOLD_P = [0.23, 0.59, 0.90]; // mid-hold points on the camera path
+  ticks.forEach((t, i) => {
+    t.setAttribute("role", "button");
+    t.setAttribute("tabindex", "0");
+    t.setAttribute("aria-label", "Aller à la zone " + (ZONES[i] ? ZONES[i].name : i + 1));
+    const go = () => {
+      const vh = window.innerHeight || 800;
+      const zTop = section.offsetTop;
+      const zLen = Math.max(1, section.offsetHeight - vh);
+      const y = zTop + ((HOLD_P[i] - 0.10) / 0.90) * zLen;
+      if (window.BC.lenis) window.BC.lenis.scrollTo(y, { duration: 1.6 });
+      else window.scrollTo({ top: y, behavior: "smooth" });
+    };
+    t.addEventListener("click", go);
+    t.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+  });
+
   const update = () => {
+    // when the WebGL walkthrough is live it owns the zone state (single source
+    // of truth); this DOM scroller only drives the no-webgl fallback
+    if (document.documentElement.classList.contains("has-webgl")) return;
     if (getComputedStyle(sticky).position !== "sticky") return;
     const vh = sticky.offsetHeight || window.innerHeight || 800;
     const total = section.offsetHeight - vh;
@@ -139,12 +163,61 @@ function zonesScroll() {
       curr = idx;
       zones.forEach((z, i) => z.classList.toggle("is-active", i === idx));
       ticks.forEach((t, i) => t.classList.toggle("is-active", i === idx));
+      if (idx >= 0) zoneWhoosh(idx); // spatial cue per room (opt-in sound)
     }
   };
   if (window.BC && window.BC.lenis) window.BC.lenis.on("scroll", update);
   else window.addEventListener("scroll", update, { passive: true });
   window.addEventListener("resize", update);
   update();
+}
+
+/* The coach's lamp — the disciplines grid reacts to the cursor as a group:
+   a glow sweeps across the cards (bright under the cursor, faint spill on
+   the neighbours) and the card you're over tilts toward you. Fine-pointer
+   devices only; touch gets touchLife() instead. */
+function armory() {
+  if (reduce) return;
+  if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  const grid = $("#disciplines");
+  if (!grid) return;
+  const cards = [...grid.querySelectorAll(".disc")];
+  let raf = 0, ev = null;
+  const apply = () => {
+    raf = 0;
+    const e = ev; if (!e) return;
+    for (const card of cards) {
+      const r = card.getBoundingClientRect();
+      if (!r.width) continue;
+      const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+      const glow = Math.max(0, 1 - Math.hypot(dx, dy) / 620);
+      card.style.setProperty("--glow", glow.toFixed(3));
+      card.style.setProperty("--gx", (((e.clientX - r.left) / r.width) * 100).toFixed(1) + "%");
+      card.style.setProperty("--gy", (((e.clientY - r.top) / r.height) * 100).toFixed(1) + "%");
+      const inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+      card.style.setProperty("--tx", inside ? (-(dy / r.height) * 7).toFixed(2) + "deg" : "0deg");
+      card.style.setProperty("--ty", inside ? ((dx / r.width) * 9).toFixed(2) + "deg" : "0deg");
+    }
+  };
+  grid.addEventListener("mousemove", (e) => { ev = e; if (!raf) raf = requestAnimationFrame(apply); }, { passive: true });
+  grid.addEventListener("mouseleave", () => {
+    ev = null;
+    cards.forEach((c) => { c.style.setProperty("--glow", "0"); c.style.setProperty("--tx", "0deg"); c.style.setProperty("--ty", "0deg"); });
+  });
+}
+
+/* On touch devices there is no hover, so cards would sit dead. As a card
+   crosses ~55% visibility it "switches on" (photo brightens, chevron slides,
+   description unfolds) and switches off as it leaves — the whole page breathes
+   while you scroll. Desktop keeps its hover states untouched. */
+function touchLife() {
+  if (!window.matchMedia("(hover: none)").matches) return;
+  if (!("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver(
+    (entries) => entries.forEach((e) => e.target.classList.toggle("is-inview", e.isIntersecting && e.intersectionRatio >= 0.55)),
+    { threshold: [0, 0.55, 1] }
+  );
+  document.querySelectorAll(".disc, .coach, .value, .tarif, .gallery__cell, .cartouche__cell").forEach((el) => io.observe(el));
 }
 
 /* Photos "develop" in as they enter (fromTo always ends visible). */
@@ -203,6 +276,8 @@ function boot() {
   initSectors();
   mediaReveal();
   parallax();
+  touchLife();
+  armory();
 
   const start = () => { window.BC.refresh(); window.BC.initKinetics(); };
   window.addEventListener("load", start);
