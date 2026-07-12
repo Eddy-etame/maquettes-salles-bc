@@ -123,15 +123,21 @@ export function initSectors() {
   // active sector = last section whose top crossed the 42% line (live geometry)
   const list = [...sections].map((el, i) => ({ el, n: i + 1, name: el.dataset.sector }));
   const heroEl = document.querySelector(".hero");
+  const zonesPin = document.querySelector(".zones");
   let ticking = false;
   const measure = () => {
     ticking = false;
-    const line = window.innerHeight * 0.42;
+    const vh = window.innerHeight;
+    const line = vh * 0.42;
     let active = null;
     for (const s of list) if (s.el.getBoundingClientRect().top <= line) active = s;
     if (active) setSector(active.n, active.name);
-    if (heroEl) hud.classList.toggle("is-on", heroEl.getBoundingClientRect().bottom < window.innerHeight * 0.5);
-    else hud.classList.toggle("is-on", (window.scrollY || window.pageYOffset || 0) > 240); // subpages have no hero
+    // inside the pinned walkthrough the rail IS the directory — the HUD yields
+    // (it was sitting on top of the rail rows)
+    let inWalkthrough = false;
+    if (zonesPin) { const zr = zonesPin.getBoundingClientRect(); inWalkthrough = zr.top <= vh * 0.3 && zr.bottom >= vh; }
+    if (heroEl) hud.classList.toggle("is-on", !inWalkthrough && heroEl.getBoundingClientRect().bottom < vh * 0.5);
+    else hud.classList.toggle("is-on", !inWalkthrough && (window.scrollY || window.pageYOffset || 0) > 240); // subpages have no hero
   };
   const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(measure); } };
   if (window.BC && window.BC.lenis) window.BC.lenis.on("scroll", onScroll);

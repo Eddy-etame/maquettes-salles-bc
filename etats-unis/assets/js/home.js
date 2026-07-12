@@ -3,10 +3,10 @@
    Signature = "Les 3 zones" : the building's real 3×400 m² architecture,
    toured by scroll-jacking. Replaces Minimes' champions/pour-qui sections.
    ===================================================================== */
-import { STATS, DISCIPLINES, ZONES, VALUES, COACHES, TARIFS, MEDIA } from "./data.js";
-import { initHero } from "./hero.js";
-import { initSectors, zoneWhoosh } from "./zones.js?v=3d7"; // versioned: python http.server caches hard
-import { initColosse3D } from "./colosse3d.js?v=3d7";
+import { STATS, DISCIPLINES, ZONES, VALUES, COACHES, TARIFS, MEDIA } from "./data.js?v=3d8";
+import { initHero } from "./hero.js?v=3d8";
+import { initSectors, zoneWhoosh } from "./zones.js?v=3d8"; // versioned: python http.server caches hard
+import { initColosse3D } from "./colosse3d.js?v=3d8";
 
 const gsap = window.gsap;
 const ScrollTrigger = window.ScrollTrigger;
@@ -132,7 +132,7 @@ function zonesScroll() {
   let curr = -1;
   // the rail is a table of contents — click (or Enter/Space) a zone to glide
   // to its hold on the walkthrough. Bound in BOTH modes (3D and fallback).
-  const HOLD_P = [0.23, 0.59, 0.90]; // mid-hold points on the camera path
+  const HOLD_P = [0.23, 0.54, 0.85]; // mid-hold points on the retimed camera path
   ticks.forEach((t, i) => {
     t.setAttribute("role", "button");
     t.setAttribute("tabindex", "0");

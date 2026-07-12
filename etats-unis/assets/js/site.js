@@ -1,9 +1,9 @@
 /* =====================================================================
-   MINIMES · site.js (v2) — chrome + heavy motion engine
+   ÉTATS-UNIS · site.js — chrome + heavy motion engine
    window.BC = { reveal, magnetic, refresh, media, split, scramble,
                  lenis, velocity }
    ===================================================================== */
-import { NAV, LINKS, SALLE, MEDIA } from "./data.js";
+import { NAV, LINKS, SALLE, MEDIA } from "./data.js?v=3d8";
 
 const gsap = window.gsap;
 const ScrollTrigger = window.ScrollTrigger;

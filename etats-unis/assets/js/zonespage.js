@@ -5,8 +5,8 @@
    posters — never invented, never crossed with a wrong photo), and its specs.
    Rendered from ZONES (data.js) so the team ports it 1:1 to Astro/Next.
    ===================================================================== */
-import { ZONES } from "./data.js";
-import { initSectors } from "./zones.js?v=3d7";
+import { ZONES } from "./data.js?v=3d8";
+import { initSectors } from "./zones.js?v=3d8";
 
 const $ = (s, r = document) => r.querySelector(s);
 const ROMAN = ["I", "II", "III"];

@@ -40,9 +40,20 @@ main > * { position: relative; z-index: 1; }
 .has-webgl .zones__head { position: relative; z-index: 1; }
 .has-webgl .zones__head::before { content: ""; position: absolute; inset: -2.4rem -2rem; z-index: -1; background: radial-gradient(135% 115% at 0% 45%, rgba(6,8,13,.96), rgba(6,8,13,.72) 58%, transparent 84%); }
 /* the zone panel gets a true glass plate — not text floating on a photo */
-.has-webgl .zone__body { background: rgba(6,8,13,.72); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--line); border-left: 3px solid var(--accent); padding: clamp(1.3rem,2.4vw,2rem); max-width: 34rem; left: auto; right: 0; bottom: 0; }
+.has-webgl .zone__body { background: rgba(6,8,13,.84); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--line); border-left: 3px solid var(--accent); padding: clamp(1.3rem,2.4vw,2rem); max-width: 34rem; left: auto; right: 0; bottom: 0; }
 .has-webgl .zone__desc { color: var(--fg-soft); }
 .has-webgl .zone__specs span { background: rgba(6,8,13,.85); }
+
+/* room in focus (.is-rooms, set by the 3D sync) → the section header steps
+   aside: ONE reading target at a time. The headline never sits on the
+   full-bleed photo again, and nothing stacks on anything (stuffed fix). */
+.has-webgl .zones__eyebrow, .has-webgl .zones__title, .has-webgl .zones__intro { transition: opacity .55s var(--ease), transform .55s var(--ease); }
+.has-webgl .zones.is-rooms .zones__eyebrow,
+.has-webgl .zones.is-rooms .zones__title,
+.has-webgl .zones.is-rooms .zones__intro { opacity: 0; transform: translateY(-16px); pointer-events: none; }
+/* the rail becomes the only left element during rooms — it gets its own
+   glass plate so it never gambles against the photo */
+.has-webgl .zones__rail { background: rgba(6,8,13,.78); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--line); padding: .35rem .85rem .45rem; }
 
 /* ===================== HERO — the monument title card ============ */
 .hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: clamp(6rem,13vh,9rem); overflow: hidden; background: var(--black); }
@@ -145,14 +156,14 @@ html:not(.fx) .stat::before { transform: scaleY(1); } /* no-motion → bar just 
 .zone__specs span { display: inline-flex; align-items: center; gap: .6ch; font: 700 var(--step--1)/1 var(--f-mono); letter-spacing: .04em; text-transform: uppercase; color: var(--bone); padding: .5em .85em; border: 1px solid var(--line); background: rgba(6,7,7,.4); }
 .zone__specs span::before { content: "\00BB"; color: var(--amber); }
 @media (min-width: 821px){
-  .zones { height: 400vh; }
+  .zones { height: 330vh; } /* retimed 2026-07-12: dead dark-travel compressed, holds kept */
   .zones__sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; align-items: center; }
-  .zones__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2rem,5vw,5rem); align-items: center; }
+  .zones__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2rem,5vw,5rem); align-items: center; padding-block: clamp(3rem,6vh,4.5rem); max-height: 100vh; }
   .zones__stage { height: 76vh; border: 1px solid var(--line); }
 }
 /* mobile: SAME scroll-jack, compacted (no static fallback) */
 @media (max-width: 820px){
-  .zones { height: 360vh; }
+  .zones { height: 300vh; } /* retimed to match the desktop compression */
   .zones__sticky { position: sticky; top: 0; height: 100svh; overflow: hidden; display: flex; }
   .zones__grid { display: grid; grid-template-rows: auto 1fr; gap: .7rem; width: var(--wrap); margin-inline: auto; padding-block: clamp(4.2rem,9vh,5.5rem) 1rem; height: 100%; align-items: start; }
   .zones__title { font-size: clamp(2rem,9vw,2.8rem); margin: .5rem 0 0; }

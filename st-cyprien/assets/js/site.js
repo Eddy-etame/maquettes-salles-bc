@@ -4,7 +4,7 @@
    Same proven engine as the other salles, with the Neuf's restraint:
    no custom cursor, no grain — precision instead of texture.
    ===================================================================== */
-import { NAV, LINKS, SALLE } from "./data.js";
+import { NAV, LINKS, SALLE } from "./data.js?v=5";
 
 const gsap = window.gsap;
 const ScrollTrigger = window.ScrollTrigger;

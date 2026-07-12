@@ -147,6 +147,62 @@ export const DISCIPLINES = [
   },
 ];
 
+/* ------------------------------------------------------------------ *
+ *  LA VISITE — the subpage's signature. The showroom visit at night :
+ *  six stations, each lit as you reach it. Photos = real BC shots of
+ *  the matching practice; specs stay factual (nothing invented).
+ * ------------------------------------------------------------------ */
+export const VISITE = [
+  {
+    n: "01",
+    t: "Le plateau",
+    tag: "1 200 m² · rive gauche",
+    d: "Un seul niveau, mille deux cents mètres carrés, zéro usure. La salle a ouvert en août 2025 : ce que tu vois, personne ne l'a abîmé avant toi.",
+    img: "/assets/img/sc/salle-1.webp",
+    specs: ["Ouverte août 2025", "État · neuf"],
+  },
+  {
+    n: "02",
+    t: "L'anglaise",
+    tag: "Le noble art",
+    d: "Rings neufs, cordes tendues, coin bleu, coin rouge. C'est ici que Dadi fait travailler le jab — midis pour la pause active, soirs pour le vrai travail.",
+    img: "/assets/img/sc/anglaise.webp",
+    specs: ["Coach · Dadi", "5 créneaux / sem."],
+  },
+  {
+    n: "03",
+    t: "Le pieds-poings",
+    tag: "Thaï · K1",
+    d: "Tibias, genoux, coudes : la surface pieds-poings, encadrée par Tawee et Victor G. La boxe la plus complète, enseignée dans les règles de l'art.",
+    img: "/assets/img/sc/thai-2.webp",
+    specs: ["Coachs · Tawee, Victor G", "5 créneaux / sem."],
+  },
+  {
+    n: "04",
+    t: "La zone cross & muscu",
+    tag: "Le moteur",
+    d: "Machines et charges toutes neuves, circuits Hyrox le mercredi, cross lundi et mercredi avec Hicham. Le cardio et la force qui portent tout le reste.",
+    img: "/assets/img/sc/muscu.webp",
+    specs: ["Coach · Hicham", "Hyrox · Cross · HIIT"],
+  },
+  {
+    n: "05",
+    t: "L'école",
+    tag: "Dès 3 ans",
+    d: "Baby Boxe le samedi, éducative 7/11, ados 12/16, compétiteurs : l'école complète tient son propre créneau sur des tatamis qui sortent du carton.",
+    img: "/assets/img/sc/educative.webp",
+    specs: ["Baby 3/6 · 7/11 · 12/16", "Coach · Dadi"],
+  },
+  {
+    n: "06",
+    t: "Le collectif",
+    tag: "Tous niveaux",
+    d: "Lady Punch le mardi et le jeudi, boxing camp quatre fois par semaine : les créneaux où l'on transpire ensemble, du premier gant aux gants qui piquent.",
+    img: "/assets/img/sc/tous-niveaux.webp",
+    specs: ["Lady Punch · 100 % féminin", "Camp · 4 créneaux"],
+  },
+];
+
 /* Le code du Neuf */
 export const VALUES = [
   { n: "01", t: "Tout est neuf", d: "Ouverte en août 2025 : rings, tatamis, sacs, vestiaires — zéro usure, zéro compromis." },

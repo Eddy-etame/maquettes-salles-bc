@@ -4,7 +4,7 @@
    a product — the sheet (photo, coach, days, level) swaps with a soft
    spring. Everything rendered from data.js (real planning rentrée 2026).
    ===================================================================== */
-import { STATS, DISCIPLINES, TARIFS } from "./data.js";
+import { STATS, DISCIPLINES, TARIFS } from "./data.js?v=5";
 
 const gsap = window.gsap;
 const ScrollTrigger = window.ScrollTrigger;
@@ -34,7 +34,7 @@ function renderConfig() {
   if (!list) return;
   if (bg) bg.innerHTML = DISCIPLINES.map((d, i) => `<div class="media ${i === 0 ? "is-active" : ""}" data-img="${d.img}" data-label=""></div>`).join("");
   list.innerHTML = DISCIPLINES.map((d, i) => `
-    <button class="cfg ${i === 0 ? "is-active" : ""}" type="button" role="tab" aria-selected="${i === 0}" id="cfg-${d.key}" data-i="${i}">
+    <button class="cfg ${i === 0 ? "is-active" : ""}" type="button" role="tab" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}" aria-controls="config-panel" id="cfg-${d.key}" data-i="${i}">
       <span class="cfg__n">${String(i + 1).padStart(2, "0")}</span>
       <span class="cfg__name">${d.name}</span>
       <span class="cfg__tag">${d.tag}</span>
@@ -59,7 +59,9 @@ function renderConfig() {
     if (i === curr) return;
     curr = i;
     const d = DISCIPLINES[i];
-    [...list.children].forEach((b, k) => { b.classList.toggle("is-active", k === i); b.setAttribute("aria-selected", String(k === i)); });
+    [...list.children].forEach((b, k) => { b.classList.toggle("is-active", k === i); b.setAttribute("aria-selected", String(k === i)); b.setAttribute("tabindex", k === i ? "0" : "-1"); });
+    const panel = document.getElementById("config-panel");
+    if (panel) panel.setAttribute("aria-labelledby", `cfg-${d.key}`);
     [...mediaBox.children].forEach((m, k) => m.classList.toggle("is-active", k === i));
     if (bg) [...bg.children].forEach((m, k) => m.classList.toggle("is-active", k === i));
     body.classList.add("is-swapping");
@@ -116,14 +118,20 @@ function heroSpot() {
   if (reduce || window.matchMedia("(hover: none)").matches) return;
   const hero = document.querySelector(".hero"), spot = $(".hero__spot");
   if (!hero || !spot) return;
-  let raf = 0, e = null;
+  let raf = 0, e = null, first = true;
   const apply = () => {
     raf = 0; if (!e) return;
     const r = hero.getBoundingClientRect();
     spot.style.setProperty("--sx", (((e.clientX - r.left) / r.width) * 100).toFixed(1) + "%");
     spot.style.setProperty("--sy", (((e.clientY - r.top) / r.height) * 100).toFixed(1) + "%");
   };
-  hero.addEventListener("pointermove", (ev) => { e = ev; hero.classList.add("is-lit"); if (!raf) raf = requestAnimationFrame(apply); }, { passive: true });
+  hero.addEventListener("pointermove", (ev) => {
+    e = ev; hero.classList.add("is-lit");
+    // first contact positions the light synchronously — the spot must never
+    // glow at a stale default while rAF wakes up (or never fires)
+    if (first) { first = false; apply(); return; }
+    if (!raf) raf = requestAnimationFrame(apply);
+  }, { passive: true });
   hero.addEventListener("pointerleave", () => hero.classList.remove("is-lit"));
 }
 

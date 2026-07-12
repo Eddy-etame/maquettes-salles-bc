@@ -12,8 +12,8 @@
        html.no-webgl and the CSS fallback (video hero + photo scroll-jack)
        takes over. Nothing here can leave the page blank.
    ===================================================================== */
-import { ZONES } from "./data.js";
-import { zoneWhoosh } from "./zones.js?v=3d7"; // spatial cue when a room takes focus
+import { ZONES } from "./data.js?v=3d8";
+import { zoneWhoosh } from "./zones.js?v=3d8"; // spatial cue when a room takes focus
 const THREE = window.THREE;
 
 export function initColosse3D() {
@@ -229,9 +229,11 @@ export function initColosse3D() {
   // ---- camera path: fly to the framing z (roomZ+13, where the 26×14.6 plane
   //      FILLS a 56° viewport) → HOLD FLAT (reading time, zero drift) → advance
   //      9u so the shader dissolves the image while we move into the dark →
-  //      dark travel → next room. Approach = [0…0.10]; rooms live in the pin. ----
-  const KP = [0, 0.10, 0.16, 0.30, 0.38, 0.46, 0.52, 0.66, 0.74, 0.80, 0.86, 0.97, 1.0];
-  const KZ = [12, -20, -27, -27, -36, -64, -77, -77, -86, -114, -127, -127, -136];
+  //      dark travel → next room. Approach = [0…0.10]; rooms live in the pin.
+  //      Retimed 2026-07-12: the pure-dark travel is a breath (4%), not a
+  //      corridor of nothing — holds gained what the dead scroll lost. ----
+  const KP = [0, 0.10, 0.15, 0.31, 0.36, 0.40, 0.46, 0.62, 0.67, 0.71, 0.77, 0.93, 1.0];
+  const KZ = [12, -20, -27, -27, -36, -48, -77, -77, -86, -98, -127, -127, -136];
   const camZ = (p) => {
     if (p <= KP[0]) return KZ[0];
     for (let i = 1; i < KP.length; i++) if (p <= KP[i]) { const t = (p - KP[i - 1]) / (KP[i] - KP[i - 1]); return KZ[i - 1] + (KZ[i] - KZ[i - 1]) * t; }
@@ -248,6 +250,9 @@ export function initColosse3D() {
     const prev = domActive; domActive = idx;
     zonePanels.forEach((el, i) => el.classList.toggle("is-active", i === idx));
     railTicks.forEach((el, i) => el.classList.toggle("is-active", i === idx));
+    // a room has focus → the section header steps aside (one reading target
+    // at a time — the headline never fights the full-bleed photo)
+    if (zonesEl) zonesEl.classList.toggle("is-rooms", idx >= 0);
     if (idx >= 0 && prev !== -2) zoneWhoosh(idx); // room takes focus → its voice (opt-in)
   };
 
